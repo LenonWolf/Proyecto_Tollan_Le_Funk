@@ -1,0 +1,118 @@
+#panel-control {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+.btn-fondo {
+    display: block;
+    min-width: 200px;
+    transition: all 0.4s linear;
+    padding: 9rem 6rem 2rem;
+    margin: 5px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    font-family: cursive;
+    color: #000000;
+}
+
+#btn-fondo-ver {
+    background-color: #ffffff;
+    background-image: url('../img/background_ver_b&n.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#btn-fondo-crear {
+    background-color: #ffffff;
+    background-image: url('../img/background_crear_b&n.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#btn-fondo-editar {
+    background-color: #ffffff;
+    background-image: url('../img/background_editar_b&n.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.btn-gestion {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: rgba(225, 113, 72, 1);
+}
+
+.btn-fondo:hover {
+    color: rgb(255, 255, 255);
+}
+
+#btn-fondo-ver:hover {
+    background-color: #000000;
+    background-image: url('../img/background_ver.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#btn-fondo-crear:hover {
+    background-color: #000000;
+    background-image: url('../img/background_crear.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#btn-fondo-editar:hover {
+    background-color: #000000;
+    background-image: url('../img/background_editar.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 1250px) {
+    #panel-control {
+        display: block;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    #panel-control {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .btn-fondo {
+        max-width: 100%;
+        margin: 5px;
+        padding: 0;
+        padding: 8rem 0 0.2rem;
+        color: white;
+    }
+
+    .btn-gestion {
+        max-width: 80%;
+        margin: 4px auto;
+        padding: 0.1rem;
+    }
+
+    #btn-fondo-ver {
+        background-image: url('../img/background_ver.png');
+    }
+
+    #btn-fondo-crear {
+        background-image: url('../img/background_crear.png');
+    }
+
+    #btn-fondo-editar {
+        background-image: url('../img/background_editar.png');
+    }
+}

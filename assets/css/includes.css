@@ -1,0 +1,135 @@
+/* Estilos del encabezado */
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: rgba(225, 113, 72, 1);
+    color: #fff;
+    position: relative;
+}
+
+
+#p-encabezado {
+    font-family: cursive;
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+#lbl-menu, #lbl-cmenu {
+    display: none;
+    font-size: 2rem; 
+    cursor: pointer;
+}
+
+#btn-menu {
+    display: none;
+}
+
+#nav-menu ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+#nav-menu ul li {
+    display: inline-block;
+}
+
+#nav-menu ul li a {
+    font-size: 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    min-width: 60px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 1.5rem;
+    margin: 2px;
+    transition: all 0.4s linear;
+    border-radius: 5px;
+    color: #fff;
+}
+
+#nav-menu ul li a:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+/* Estilo de pie de página */
+footer {
+    background: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+}
+
+footer b, footer i {
+    color: rgba(225, 113, 72, 1);
+}
+
+footer p {
+    color: #cbcbcb;
+}
+
+footer a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: rgba(225, 113, 72, 1);
+}
+
+@media only screen and (max-width: 734px) {
+    #lbl-menu {
+        display: block;
+    }
+
+    #nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(225,113,72,0.95);
+        z-index: 1000;
+    }
+    
+    #btn-menu:checked ~ #nav-menu {
+        display: block;
+    }
+
+    #btn-menu:checked ~ #lbl-cmenu {
+        display: block;
+    }
+
+    #btn-menu:checked ~ #lbl-menu {
+        display: none;
+    }
+
+    #nav-menu ul {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+    }
+
+    #nav-menu ul li {
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+}
+
+
+@media only screen and (max-width: 400px) {
+    #p-encabezado {
+        font-size: 3rem;
+    }
+
+    footer p, footer a {
+        font-size: 0.8rem;
+    }
+}
