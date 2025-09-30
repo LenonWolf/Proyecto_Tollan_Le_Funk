@@ -133,11 +133,13 @@
                                 </a>";
                             }
 
+                            $fecha_inicio_fmt = date("d/m/Y", strtotime($row['Fecha_Inicio']));
+
                             echo "<tr>
                                     <td>".htmlspecialchars($row['ID_Partida'])."</td>
                                     <td>".htmlspecialchars($row['Titulo'])."</td>
                                     <td>".htmlspecialchars($row['Sistema_Titulo'])."</td>
-                                    <td>".htmlspecialchars($row['Fecha_Inicio'])."</td>
+                                    <td>".htmlspecialchars($fecha_inicio_fmt)."</td>
                                     <td>".htmlspecialchars($row['DM_Nombre'])."</td>
                                     <td>".htmlspecialchars($estado)."</td>
                                     <td>".$btnPausar."</td>

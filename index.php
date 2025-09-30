@@ -19,7 +19,7 @@
     <main>
         <div>
             <h1>Gestor de Partidas</h1>
-            <p>Bienvenido al gestor de partidas donde podras administrar las partidas de rol de la cafeteria Tollan Le Funk.</p>
+            <p class="p-texto">Bienvenido al gestor de partidas donde podras administrar las partidas de rol de la cafeteria Tollan Le Funk.</p>
             
             <!-- Botones del panel de control -->
             <div id="panel-control">
@@ -45,12 +45,12 @@
 
         <div>
             <h2 id="h-mision" class="subt-class">Misión</h2>
-            <p>Brindar una experiencia única a los amantes de los juegos de rol, ofreciendo un espacio acogedor para disfrutar bebidas de calidad y un servicio de All-Day-Brunch, mientras fomentamos la diversión, la creatividad y la comunidad a través de partidas de rol en vivo.</p>
+            <p class="p-texto">Brindar una experiencia única a los amantes de los juegos de rol, ofreciendo un espacio acogedor para disfrutar bebidas de calidad y un servicio de All-Day-Brunch, mientras fomentamos la diversión, la creatividad y la comunidad a través de partidas de rol en vivo.</p>
         </div>
 
         <div>
             <h2 id="h-vision" class="subt-class">Visión</h2>
-            <p>Ser la cafetería temática de juegos de rol líder en la región, reconocida por su ambiente innovador y amigable, donde jugadores de todas las edades se reúnan para compartir aventuras, crear historias y disfrutar de momentos memorables.</p>
+            <p class="p-texto">Ser la cafetería temática de juegos de rol líder en la región, reconocida por su ambiente innovador y amigable, donde jugadores de todas las edades se reúnan para compartir aventuras, crear historias y disfrutar de momentos memorables.</p>
         </div>
     </main>
 

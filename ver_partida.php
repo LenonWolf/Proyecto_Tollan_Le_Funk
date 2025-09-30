@@ -89,14 +89,26 @@
                                     }
                                 }
 
+                                $fecha_inicio_fmt = !empty($row['Fecha_Inicio'])
+                                    ? date("d/m/Y", strtotime($row['Fecha_Inicio']))
+                                    : '';
+
+                                $fecha_fin_fmt = !empty($row['Fecha_Fin'])
+                                    ? date("d/m/Y H:i", strtotime($row['Fecha_Fin']))
+                                    : '--/--/---- --:--'; // o puedes dejarlo vacío ''
+
+                                $horario_fmt = !empty($row['Horario'])
+                                    ? date("H:i", strtotime($row['Horario']))
+                                    : '';
+
                                 echo "<tr>
                                         <td>".htmlspecialchars($row['ID_Partida'])."</td>
                                         <td>".htmlspecialchars($row['Titulo'])."</td>
                                         <td>".htmlspecialchars($row['Sistema_Titulo'])."</td>
                                         <td>".htmlspecialchars($row['Sistema_Descripcion'])."</td>
-                                        <td>".htmlspecialchars($row['Fecha_Inicio'])."</td>
-                                        <td>".htmlspecialchars($row['Fecha_Fin'])."</td>
-                                        <td>".htmlspecialchars($row['Horario'])."</td>
+                                        <td>".htmlspecialchars($fecha_inicio_fmt)."</td>
+                                        <td>".htmlspecialchars($fecha_fin_fmt)."</td>
+                                        <td>".htmlspecialchars($horario_fmt)."</td>
                                         <td>".htmlspecialchars($row['Periocidad'])."</td>
                                         <td>".htmlspecialchars($row['DM_Nombre'])."</td>
                                         <td>".htmlspecialchars($row['Numero_Jugadores'])."</td>

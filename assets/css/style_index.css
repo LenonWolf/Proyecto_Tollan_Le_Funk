@@ -75,6 +75,10 @@
     background-repeat: no-repeat;
 }
 
+.p-texto {
+    text-align: justify;
+}
+
 @media only screen and (max-width: 1250px) {
     #panel-control {
         display: block;
