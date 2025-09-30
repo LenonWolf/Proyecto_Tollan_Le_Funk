@@ -39,7 +39,7 @@
 }
 
 /* Botón de actualizar */
-#btn-actualizar {
+#btn-actualizar, #btn-actualizar-2 {
   background-color: #007bff;
   color: white;
 }
@@ -49,7 +49,7 @@
 }
 
 /* Botón de cancelar */
-#btn-cancelar {
+#btn-cancelar, #btn-cancelar-2 {
   background-color: #6c757d;
   color: white;
 }
@@ -59,7 +59,7 @@
 }
 
 /* Botón de borrar */
-#btn-borrar {
+#btn-borrar, #btn-borrar-2 {
   background-color: #dc3545;
   color: white;
 }

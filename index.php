@@ -6,10 +6,10 @@
     <meta name="description" content="Página web de gestión de juegos de rol de la cafetería Tollan le Funk">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/style_index.css">
-    <link rel="stylesheet" href="assets/css/includes.css">
-    <link rel="icon" type="image/x-icon" href="assets/img/dragon.ico">
+    <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/global.css">
+    <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_index.css">
+    <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/includes.css">
+    <link rel="icon" type="image/x-icon" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/img/dragon.ico">
     <title>Tollan le Funk - Gestión</title>
 </head>
 
