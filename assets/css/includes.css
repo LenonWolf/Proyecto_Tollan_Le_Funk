@@ -83,6 +83,12 @@ footer a:hover {
     color: rgba(225, 113, 72, 1);
 }
 
+#validator {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
 @media only screen and (max-width: 734px) {
     #lbl-menu {
         display: block;
