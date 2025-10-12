@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_form.css">
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_btn.css">
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/includes.css">
-    <link rel="icon" type="image/x-icon" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/img/dragon.ico">
+    <link rel="icon" type="image/x-icon" href="../assets/img/dragon.ico">
     <title>Tollan le Funk - Modificación</title>
 </head>
 
@@ -60,37 +60,7 @@
             <button id="btn-borrar-2" class="btn-2" form="form-borrar" type="submit"><i class="fas fa-trash"></i></button>
         </div>
 
-        <script>
-        document.getElementById('form-borrar').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            if (!confirm("¿Seguro que deseas eliminar esta partida? Esta acción no se puede deshacer.")) {
-                return;
-            }
-
-            const formData = new FormData(this);
-
-            try {
-                const resp = await fetch('delete_partida.php', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (resp.ok) {
-                    // Avisar al padre que refresque (si existe)
-                    if (window.opener && !window.opener.closed) {
-                        window.opener.location.reload();
-                    }
-                    // Cerrar la ventana emergente
-                    window.close();
-                } else {
-                    alert("Error al eliminar la partida.");
-                }
-            } catch (err) {
-                console.error(err);
-                alert("Error de red al eliminar la partida.");
-            }
-        });
-        </script>
+        <script src="../assets/js/modificar_partida.js"></script>
     </main>
     <?php include 'includes/footer.php'; ?>
 </body>

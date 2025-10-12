@@ -36,7 +36,11 @@ if ($No_Jugadores < 1) $errors[] = 'Número de jugadores inválido.';
 
 if (!empty($errors)) {
     $msg = implode(' | ', $errors);
-    echo "<script>alert('Error: $msg'); window.history.back();</script>";
+    echo "
+        <script>
+            alert('Error: $msg'); window.history.back();
+        </script>
+        ";
     exit;
 }
 
@@ -45,7 +49,11 @@ if (!empty($errors)) {
 // --------------------
 if ($ID_DM === 'new' || $ID_DM === '' ) {
     if (empty($dm_nombre) || empty($dm_fecha_nac)) {
-        echo "<script>alert('Datos del DM incompletos.'); window.history.back();</script>";
+        echo "
+            <script>
+                alert('Datos del DM incompletos.'); window.history.back();
+            </script>
+            ";
         exit;
     }
     // Buscar si ya existe
@@ -63,7 +71,11 @@ if ($ID_DM === 'new' || $ID_DM === '' ) {
         $stmt2 = $conn->prepare($sql_insert_dm);
         $stmt2->bind_param('ss', $dm_nombre, $dm_fecha_nac);
         if (!$stmt2->execute()) {
-            echo "<script>alert('Error al crear DM.'); window.history.back();</script>";
+            echo "
+                <script>
+                    alert('Error al crear DM.'); window.history.back();
+                </script>
+            ";
             exit;
         }
         $dm_id_to_use = $stmt2->insert_id;
@@ -72,7 +84,11 @@ if ($ID_DM === 'new' || $ID_DM === '' ) {
     // Usaron un DM existente
     $dm_id_to_use = intval($ID_DM);
     if ($dm_id_to_use <= 0) {
-        echo "<script>alert('DM inválido.'); window.history.back();</script>";
+        echo "
+            <script>
+                alert('DM inválido.'); window.history.back();
+            </script>
+            ";
         exit;
     }
 }
@@ -95,17 +111,23 @@ $stmtp->bind_param('iissssii',
 );
 
 if (!$stmtp->execute()) {
-    echo "<script>alert('Error al actualizar partida: " . addslashes($conn->error) . "'); window.history.back();</script>";
+    echo "
+        <script>
+            alert('Error al actualizar partida: " . addslashes($conn->error) . "'); window.history.back();
+        </script>
+        ";
     exit;
 }
 
 // --------------------
 // Éxito → refrescar padre y cerrar popup
 // --------------------
-echo "<script>
-    if (window.opener && !window.opener.closed) {
-        window.opener.location.reload(); // refresca editar_partida.php
-    }
-    window.close(); // cierra modificar_partida.php
-</script>";
+echo "
+    <script>
+        if (window.opener && !window.opener.closed) {
+            window.opener.location.reload(); // refresca editar_partida.php
+        }
+        window.close(); // cierra modificar_partida.php
+    </script>
+    ";
 exit;
