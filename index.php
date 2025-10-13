@@ -22,6 +22,7 @@
         </div>
         
         <section id="seccion-principal"> <!-- Sección principal -->
+            <h2 class="subt-class">Panel de control</h2>
             <p class="p-texto">Bienvenido al gestor de partidas donde podras administrar las partidas de rol de la cafeteria Tollan Le Funk.</p> <!-- Texto de bienvenida -->
             
             <div id="panel-control"> <!-- Botones del panel de control -->
