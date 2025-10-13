@@ -1,3 +1,22 @@
+/********************************************************************
+ * Hoja de estilos para formularios de partidas                     *
+ * ---------------------------------------------------------------- *
+ * - Define la tipografía, colores y tamaños de labels,             *
+ *   inputs y selects en los formularios.                           *
+ * - Establece estilos de enfoque (focus) para mejorar              *
+ *   la usabilidad y accesibilidad.                                 *
+ * - Da formato a la sección de información dinámica                *
+ *   del sistema (#div-infoSistema) con estados "vacio" y "valido". *
+ * - Estiliza contenedores de formulario (.div-form),               *
+ *   notas informativas y el nombre de la partida.                  *
+ * - Incluye reglas responsivas para pantallas pequeñas (<500px),   *
+ *   ajustando tipografías, anchos y disposición de elementos.      *
+ *                                                                  *
+ * Objetivo: mantener consistencia visual, claridad y               *
+ * legibilidad en los formularios de creación y edición             *
+ * de partidas dentro de la aplicación.                             *
+ ********************************************************************/
+
 form label {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.4rem;

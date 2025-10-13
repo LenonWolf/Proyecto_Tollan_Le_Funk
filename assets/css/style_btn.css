@@ -1,3 +1,18 @@
+/*************************************************************************************
+ * Hoja de estilos para botones y acciones                                           *
+ * --------------------------------------------------------------------------------- *
+ * - Define la disposición de contenedores de acciones (.acciones).                  *
+ * - Establece estilos base para botones principales (.btn) y alternativos (.btn-2). *
+ * - Incluye variantes específicas: crear, actualizar, cancelar y borrar.            *
+ * - Contempla un estilo especial para botones de edición (.btn-edit).               *
+ * - Aplica efectos hover, estados deshabilitados y soporte para íconos.             *
+ * - Añade reglas responsivas para pantallas pequeñas (<460px),                      *
+ *   mostrando botones alternativos y ocultando el bloque principal.                 *
+ *                                                                                   *
+ * Objetivo: mantener consistencia visual y usabilidad en los                        *
+ * controles de acción de la interfaz de gestión de partidas.                        *
+ *************************************************************************************/
+
 .acciones {
   display: flex;
   justify-content: center;

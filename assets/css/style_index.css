@@ -1,3 +1,21 @@
+/*************************************************************
+ * Hoja de estilos para el panel de control principal        *
+ * --------------------------------------------------------- *
+ * - Define la disposición del contenedor #panel-control     *
+ *   y la presentación de los botones de fondo (.btn-fondo). *
+ * - Aplica imágenes de fondo específicas para las acciones  *
+ *   de ver, crear y editar partidas, con efectos hover.     *
+ * - Estiliza botones de gestión secundarios (.btn-gestion). *
+ * - Ajusta tipografías y alineación de textos (.p-texto).   *
+ * - Incluye reglas responsivas para pantallas medianas      *
+ *   (<1250px) y pequeñas (<460px), adaptando la disposición *
+ *   del panel y el tamaño de los botones.                   *
+ *                                                           *
+ * Objetivo: ofrecer una interfaz visual clara y atractiva   *
+ * para la navegación principal del sistema de gestión       *
+ * (ver, crear y editar partidas).                           *
+ *************************************************************/
+
 #panel-control {
     display: flex;
     gap: 5px;

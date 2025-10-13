@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Hoja de estilos principal para la sección de partidas                       *
+ * --------------------------------------------------------------------------- *
+ * - Define la estructura base de la página (html, body, main).                *
+ * - Establece tipografías y estilos para encabezados (h1, h2, h3) y párrafos. *
+ * - Da formato a tablas con scroll horizontal, colores alternados y hover.    *
+ * - Incluye reglas responsivas para pantallas pequeñas (<460px).              *
+ *                                                                             *
+ * Objetivo: mantener una presentación clara, legible y consistente            *
+ * en la interfaz de gestión y visualización de partidas.                      *
+ *******************************************************************************/
+
 html, body {
     height: 100%;
     margin: 0;

@@ -1,5 +1,17 @@
-/* Estilos del encabezado */
+/****************************************************************
+ * Hoja de estilos para encabezado y pie de página              *
+ * ------------------------------------------------------------ *
+ * - Define la apariencia del header: disposición flex,         *
+ *   tipografía del título, menú de navegación y efectos hover. *
+ * - Estiliza el footer: colores, enlaces y validadores.        *
+ * - Incluye reglas responsivas para adaptar el menú            *
+ *   y el tamaño de tipografías en pantallas pequeñas.          *
+ *                                                              *
+ * Objetivo: mantener coherencia visual y usabilidad            *
+ * en la navegación principal y el pie de página del sitio.     *
+ ****************************************************************/
 
+/* Estilos del encabezado */
 header {
     display: flex;
     align-items: center;
