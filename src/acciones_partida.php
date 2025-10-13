@@ -1,5 +1,5 @@
-<!-- Recibir acciones vía POST y actualizar el estado de la partida correspondiente en la base de datos -->
 <?php
+// Recibir acciones vía POST y actualizar el estado de la partida correspondiente en la base de datos
 
 include 'conexion.php'; // Incluir la conexión a MySQL
 

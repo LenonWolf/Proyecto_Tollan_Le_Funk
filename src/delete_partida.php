@@ -1,5 +1,6 @@
-<!-- Borrador de partidas -->
 <?php
+// Borrador de partidas
+
 include 'conexion.php'; // Incluir el archivo de conexión a la base de datos
 
 // Obtener el ID enviado por POST. 

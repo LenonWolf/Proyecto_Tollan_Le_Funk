@@ -1,4 +1,3 @@
-<!-- Conexión con la base de datos MySQL -->
 <?php
 
 /********************************
