@@ -8,38 +8,45 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Iconos de Font Awesome -->
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/global.css"> <!-- Estilos globales -->
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_btn.css"> <!-- Estilos de botones -->
-    <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/includes.css"> <!-- Estilos para elementos incluidos -->
-    <link rel="icon" type="image/x-icon" href="assets/img/dragon.ico"> <!-- Icono de la pestaña -->
+    <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/includes.css"> <!-- Estilos de inclusiones -->
+    <link rel="icon" type="image/x-icon" href="assets/img/dragon.ico"> <!-- Icono de la página -->
     <title>Tollan le Funk - Edición</title> <!-- Titulo de la página -->
+    
+    <style>
+        /* Estilos para feedback visual */
+        .loading-opacity {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+    </style>
 </head>
 
-<body> <!-- Cuerpo del documento -->
+<body>
     <?php
-    include 'src/conexion.php'; // Incluir la conexión a la base de datos
-    include 'src/includes/header.php'; // Incluir el encabezado desde un archivo externo
+    include 'src/conexion.php';
+    include 'src/includes/header.php';
     ?>
 
-    <main> <!-- Contenido principal de la página -->
+    <main>
         <div>
-            <h1>Editor de Partidas</h1> <!-- Título principal de la página -->
+            <h1>Editor de Partidas</h1>
         </div>
 
-        <div class="table-scroll"> <!-- Contenedor con desplazamiento para la tabla -->
-            <table aria-label="Lista para editar partidas de rol"> <!-- Tabla para editar las partidas -->
-                <thead> <!-- Encabezado de la tabla -->
-                    <tr> <!-- Fila del encabezado -->
+        <div class="table-scroll">
+            <table aria-label="Lista para editar partidas de rol">
+                <thead>
+                    <tr>
                         <th>ID</th>
                         <th>Titulo</th>
                         <th>Sistema</th>
                         <th>Fecha Inicio</th>
                         <th>DM</th>
                         <th>Estado</th>
-                        <th colspan="4">Acciones</th> <!-- Columna para los botones de acción -->
+                        <th colspan="4">Acciones</th>
                     </tr>
                 </thead>
-                <tbody> <!-- Cuerpo de la tabla -->
+                <tbody id="tabla-partidas">
                     <?php
-
                     /***********************************************************************
                     * Consulta SQL para obtener las partidas con sus detalles relacionados *
                     ***********************************************************************/
@@ -62,94 +69,81 @@
                     * Procesamiento de resultados *
                     ******************************/
                     
-                    $result = $conn->query($sql); // Ejecutar la consulta y obtener resultados
-                    date_default_timezone_set('America/Mexico_City'); // Establecer zona horaria
-                    $hoy = date('Y-m-d H:i:s'); // Obtener la fecha y hora actual
+                    $result = $conn->query($sql);
+                    date_default_timezone_set('America/Mexico_City');
+                    $hoy = date('Y-m-d H:i:s');
 
                     // Función para generar dinámicamente un botón de acción.
-                    // Si el estado está en la lista de deshabilitados, devuelve un botón inactivo.
-                    // En caso contrario, devuelve un formulario con un botón activo que envía la acción correspondiente.
                     function generarBoton($estado, $id, $accion, $icono, $texto, $deshabilitados = []) {
-                        if (in_array($estado, $deshabilitados)) {
-                            return "<button class='btn-edit' disabled><i class='fas fa-$icono'></i> $texto</button>";
-                        }
-                        return "
-                            <form method='POST' action='src/acciones_partida.php' style='display:inline;'>
-                                <input type='hidden' name='id' value='$id'>
-                                <input type='hidden' name='accion' value='$accion'>
-                                <button class='btn-edit' type='submit'><i class='fas fa-$icono'></i> $texto</button>
-                            </form>";
+                        $disabled = in_array($estado, $deshabilitados) ? 'disabled' : '';
+                        return "<button class='btn-edit' data-id='$id' data-accion='$accion' $disabled>
+                                    <i class='fas fa-$icono'></i> $texto
+                                </button>";
                     }
 
-                    if ($result->num_rows > 0) { // Verificar si hay resultados
-                        while ($row = $result->fetch_assoc()) { // Procesar cada fila de resultados
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
 
-                            $estado = $row['Estado']; // Obtener el estado actual de la partida
-                            $fecha_inicio = $row['Fecha_Inicio'] . ' ' . $row['Horario']; // Concatenar fecha y hora de inicio
-                            $fecha_fin = $row['Fecha_Fin']; // Fecha de fin de la partida
+                            $estado = $row['Estado'];
+                            $fecha_inicio = $row['Fecha_Inicio'] . ' ' . $row['Horario'];
+                            $fecha_fin = $row['Fecha_Fin'];
 
                             // Determinar estado si no está definido en la base de datos
-                            // Lógica de estado:
-                            // - Nueva: aún no inicia
-                            // - Activa: ya inició y no ha terminado
-                            // - Finalizada: ya terminó
                             if (empty($estado)) {
                                 $estado = ($fecha_inicio > $hoy) ? 'Nueva' :
                                         ((empty($fecha_fin) || $fecha_fin > $hoy) ? 'Activa' : 'Finalizada');
                             }
 
-                            // Sanitizar los datos para evitar inyección de HTML
+                            // Sanitizar los datos
                             $id = htmlspecialchars($row['ID_Partida']);
                             $titulo = htmlspecialchars($row['Titulo']);
                             $sistema = htmlspecialchars($row['Sistema_Titulo']);
                             $dm = htmlspecialchars($row['DM_Nombre']);
                             $estado_safe = htmlspecialchars($estado);
-                            $fecha_inicio_fmt = date("d/m/Y", strtotime($row['Fecha_Inicio'])); // Formato legible de fecha
+                            $fecha_inicio_fmt = date("d/m/Y", strtotime($row['Fecha_Inicio']));
 
                             /*************************************
                             * Generación de botones según estado *
                             *************************************/
 
-                            // Botón Pausar/Reanudar: cambia según el estado actual
+                            // Botón Pausar/Reanudar
                             if ($estado === "Pausada") {
                                 $btnPausar = generarBoton($estado, $id, 'reanudar', 'play', 'Reanudar');
                             } else {
                                 $btnPausar = generarBoton($estado, $id, 'pausar', 'pause', 'Pausar', ['Finalizada', 'Nueva', 'Cancelada']);
                             }
 
-                            // Botón Finalizar: deshabilitado si ya está finalizada, cancelada o aún no inicia
+                            // Botón Finalizar
                             $btnFinalizar = generarBoton($estado, $id, 'finalizar', 'check', 'Finalizar', ['Finalizada', 'Cancelada', 'Nueva']);
 
-                            // Botón Cancelar: deshabilitado si ya está finalizada o cancelada
-                            $btnCancelar  = generarBoton($estado, $id, 'cancelar', 'ban', 'Cancelar', ['Finalizada', 'Cancelada']);
+                            // Botón Cancelar
+                            $btnCancelar = generarBoton($estado, $id, 'cancelar', 'ban', 'Cancelar', ['Finalizada', 'Cancelada']);
 
-                            // Botón Modificar: solo disponible si la partida no está finalizada ni cancelada
+                            // Botón Modificar
                             if (in_array($estado, ['Finalizada', 'Cancelada'])) {
                                 $btnModificar = "<a class='btn-edit disabled'><i class='fas fa-edit'></i> Modificar</a>";
                             } else {
-                                $btnModificar = "
-                                    <a class='btn-edit' href='src/modificar_partida.php?id=$id'
-                                    onclick=\"window.open(this.href,'modificar','width=1000,height=600,scrollbars=yes'); return false;\">
-                                        <i class='fas fa-edit'></i> Modificar
-                                    </a>";
+                                $btnModificar = "<a class='btn-edit' href='src/modificar_partida.php?id=$id' data-modificar='$id'>
+                                                    <i class='fas fa-edit'></i> Modificar
+                                                </a>";
                             }
 
-                            // Imprimir la fila final de la tabla con todos los datos y botones
-                            echo "<tr>
+                            // Imprimir la fila con atributo data-estado para Vue
+                            echo "<tr data-partida-id='$id' data-estado='$estado_safe'>
                                     <td>$id</td>
                                     <td>$titulo</td>
                                     <td>$sistema</td>
                                     <td>$fecha_inicio_fmt</td>
                                     <td>$dm</td>
-                                    <td>$estado_safe</td>
-                                    <td>$btnPausar</td>
-                                    <td>$btnFinalizar</td>
-                                    <td>$btnCancelar</td>
-                                    <td>$btnModificar</td>
+                                    <td class='estado-cell'>$estado_safe</td>
+                                    <td class='btn-pausar-cell'>$btnPausar</td>
+                                    <td class='btn-finalizar-cell'>$btnFinalizar</td>
+                                    <td class='btn-cancelar-cell'>$btnCancelar</td>
+                                    <td class='btn-modificar-cell'>$btnModificar</td>
                                 </tr>";
                         }
-                    } else { // Si no hay resultados en la consulta
-                        echo "<tr><td colspan='10'>No hay partidas registradas.</td></tr>"; // Mensaje de tabla vacía
+                    } else {
+                        echo "<tr><td colspan='10'>No hay partidas registradas.</td></tr>";
                     }
                     ?>
                 </tbody>
@@ -157,6 +151,12 @@
         </div>
     </main>
 
-    <?php include 'src/includes/footer.php'; ?> <!-- Incluir el pie de página desde un archivo externo -->
+    <?php include 'src/includes/footer.php'; ?>
+
+    <!-- Vue.js 3 CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js"></script>
+    
+    <!-- Script externo para la funcionalidad Vue -->
+    <script src="assets/js/editar_partida.js"></script>
 </body>
 </html>
