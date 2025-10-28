@@ -83,6 +83,16 @@
   background-color: #8b1a25;
 }
 
+/* Botón de registrar */
+#btn-registrar {
+  background-color: #38bd57;
+  color: white;
+}
+
+#btn-registrar:hover {
+  background-color: #207935;
+}
+
 .btn-edit {
   display: inline-block;
   min-width: 120px;

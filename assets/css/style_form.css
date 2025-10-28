@@ -23,7 +23,7 @@ form label {
     color: #333333;
 }
 
-select, input[type="text"], input[type="number"], input[type="date"], input[type="time"] {
+select, input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], input[type="time"] {
     font-size: 1.4rem;
     color: #888888;
     padding: 0.4rem 0.6rem;
@@ -32,7 +32,7 @@ select, input[type="text"], input[type="number"], input[type="date"], input[type
     min-width: 180px;
 }
 
-select:focus, input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, input[type="time"]:focus {
+select:focus, input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="number"]:focus, input[type="date"]:focus, input[type="time"]:focus {
     border-color: #F25C05;
     outline: none;
     box-shadow: 0 0 5px rgba(204, 126, 0, 0.4);
@@ -74,6 +74,8 @@ option:first-child {
 
 /* Cuando el input tiene texto o valor */
 input[type="text"]:not(:placeholder-shown),
+input[type="email"]:not(:placeholder-shown),
+input[type="password"]:not(:placeholder-shown),
 input[type="number"]:not(:placeholder-shown),
 input[type="date"]:valid,
 input[type="time"]:valid {
@@ -148,7 +150,7 @@ select:required:valid {
         font-size: 1rem;
     }
 
-    select, input[type="text"], input[type="number"], input[type="date"], input[type="time"] {
+    select, input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], input[type="time"] {
         font-size: 1rem;
         width: 100%;
         padding: 0.4rem 0 0.5rem;
