@@ -23,19 +23,18 @@
     <main> <!-- Contenido principal de la página -->
         <h1>Registro de Usuario</h1>
         <form action="procesar_registro.php" method="POST"> <!-- Formulario de registro -->
-            <h2>Información del Usuario</h2>
 
             <div class="div-form">
+                <h2>Información del Usuario</h2>
+
                 <label for="username">Nombre de usuario:</label>
                 <input type="text" id="username" name="username" required>
 
                 <label for="email">Correo electrónico:</label>
                 <input type="email" id="email" name="email" required>
-            </div>
             
-            <h2>Contraseña</h2>
+                <h2>Contraseña</h2>
 
-            <div class="div-form">
                 <label for="password">Contraseña:</label>
                 <input type="password" id="password" name="password" required>
 
