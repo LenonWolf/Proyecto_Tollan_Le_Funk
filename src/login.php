@@ -36,6 +36,7 @@
             </div>
 
             <button id="btn-login" class="btn" type="submit">Iniciar Sesión</button>
+            <a id="btn-registro" class="btn" href="registro.php">Registrarse</a>
         </form>
     </main>
 
