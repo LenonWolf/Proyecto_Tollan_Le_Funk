@@ -93,6 +93,16 @@
   background-color: #207935;
 }
 
+/* Botón de actualizar */
+#btn-login {
+  background-color: #007bff;
+  color: white;
+}
+
+#btn-login:hover {
+  background-color: #004ea1;
+}
+
 .btn-edit {
   display: inline-block;
   min-width: 120px;
