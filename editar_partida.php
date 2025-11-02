@@ -23,6 +23,11 @@
 
 <body>
     <?php
+    // PROTECCIÓN: Verificar autenticación y permisos
+    include 'src/check_auth.php';
+    verificarPermisos(['Adm', 'Mod']); // Solo administradores y moderadores
+    
+    // Continuar con el código normal
     include 'src/conexion.php';
     include 'src/includes/header.php';
     ?>

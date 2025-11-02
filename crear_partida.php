@@ -16,8 +16,13 @@
 
 <body> <!-- Cuerpo del documento -->
     <?php
-    include 'src/conexion.php'; // Incluir la conexión a la base de datos
-    include 'src/includes/header.php'; // Incluir el encabezado desde un archivo externo
+    // PROTECCIÓN: Verificar autenticación y permisos
+    include 'src/check_auth.php';
+    verificarPermisos(['Adm', 'Mod']); // Solo administradores y moderadores
+    
+    // Continuar con el código normal
+    include 'src/conexion.php';
+    include 'src/includes/header.php';
 
     // Listas
     $sql_sistemas = "SELECT ID_Sistema, Titulo FROM sistema ORDER BY Titulo"; // Consulta para obtener los sistemas de juego

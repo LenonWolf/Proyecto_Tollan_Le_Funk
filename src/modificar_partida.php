@@ -16,6 +16,12 @@
 
 <body> <!-- Cuerpo del documento -->
     <?php
+    // PROTECCIÓN: Verificar autenticación y permisos
+    include 'check_auth.php';
+    verificarPermisos(['Adm', 'Mod']); // Solo administradores y moderadores
+    
+    // Continuar con el código normal
+    include 'conexion.php';
     include 'conexion.php'; // Incluir la conexión a la base de datos
 
     // Obtener el ID de la partida desde la URL (GET).

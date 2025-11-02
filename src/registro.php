@@ -10,42 +10,9 @@
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_form.css">
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_btn.css">
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/includes.css">
+    <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_registro.css">
     <link rel="icon" type="image/x-icon" href="../assets/img/dragon.ico">
     <title>Tollan le Funk - Registro</title>
-    
-    <style>
-        /* Estilos para mensajes de validación */
-        .mensaje-error {
-            color: #d32f2f;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        
-        .mensaje-exito {
-            color: #388e3c;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        
-        .mensaje-info {
-            color: #1976d2;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        
-        .input-error {
-            border-color: #d32f2f !important;
-        }
-        
-        .input-exito {
-            border-color: #388e3c !important;
-        }
-        
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-    </style>
 </head>
 
 <body>
