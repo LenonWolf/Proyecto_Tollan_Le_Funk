@@ -46,6 +46,10 @@
             color: #77111bff;
             background-color: #fc6a6aff;
         }
+
+        .div-form .btn {
+            margin-top: 10px;
+        }
     </style>
 </head>
 
