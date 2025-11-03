@@ -1,0 +1,55 @@
+.card-user {
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.card-user p {
+    font-size: 1.2rem;
+    margin: 8px 0;
+}
+
+.div-delete {
+    border: 2px solid #ff4d4d;
+    background-color: rgba(255, 77, 77, 0.1);
+}
+
+.div-cambio {
+    border: 2px solid #4d94ff;
+    background-color: rgba(77, 148, 255, 0.1);
+}
+
+.div-cambio h3 {
+    color: #003a77;
+    background-color: #5c9dff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 0;
+}
+
+.div-delete h3 {
+    color: #77111b;
+    background-color: #fc6a6a;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 0;
+}
+
+.div-form .btn {
+    margin-top: 10px;
+}
+
+#seccion-danger {
+    margin-top: 30px;
+}
+
+/* Arreglar posición de mensajes de validación */
+.mensaje-error,
+.mensaje-exito,
+.mensaje-info {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
