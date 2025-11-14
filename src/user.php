@@ -97,24 +97,43 @@
                 </form>
             </div>
 
-            <div class="div-form div-delete">
-                <h3>Eliminar Cuenta</h3>
-                <p style="color: #ff4d4d; font-weight: bold;">
-                    Esta acción es IRREVERSIBLE. Perderás todos tus datos permanentemente.
-                </p>
-                <form id="form-eliminar-usuario" action="procesar_eliminacion_usuario.php" method="POST">
-                    <label for="confirmar_delete"><i class="fas fa-exclamation-circle"></i> Escribe "ELIMINAR" para confirmar:</label>
-                    <input type="text" id="confirmar_delete" name="confirmar_delete" required placeholder="ELIMINAR">
-                    <span id="mensaje-confirmar-delete"></span>
+            <?php if ($_SESSION['Tipo_Usr'] === 'Usr'): ?>
+                <!-- Usuario normal: puede eliminar su propia cuenta -->
+                <div class="div-form div-delete">
+                    <h3>Eliminar Cuenta</h3>
+                    <p style="color: #ff4d4d; font-weight: bold;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Esta acción es IRREVERSIBLE. Perderás todos tus datos permanentemente.
+                    </p>
+                    <form id="form-eliminar-usuario" action="procesar_eliminacion_usuario.php" method="POST">
+                        <label for="confirmar_delete"><i class="fas fa-exclamation-circle"></i> Escribe "ELIMINAR" para confirmar:</label>
+                        <input type="text" id="confirmar_delete" name="confirmar_delete" required placeholder="ELIMINAR">
+                        <span id="mensaje-confirmar-delete"></span>
 
-                    <label for="confirmar_eliminacion"><i class="fas fa-lock"></i> Tu Contraseña:</label>
-                    <input type="password" id="confirmar_eliminacion" name="confirmar_eliminacion" required>
+                        <label for="confirmar_eliminacion"><i class="fas fa-lock"></i> Tu Contraseña:</label>
+                        <input type="password" id="confirmar_eliminacion" name="confirmar_eliminacion" required>
 
-                    <button id="btn-eliminar-cuenta" class="btn btn-borrar" type="submit">
-                        <i class="fas fa-trash-alt"></i> Eliminar Cuenta Permanentemente
-                    </button>
-                </form>
-            </div>
+                        <button id="btn-eliminar-cuenta" class="btn btn-borrar" type="submit">
+                            <i class="fas fa-trash-alt"></i> Eliminar Cuenta Permanentemente
+                        </button>
+                    </form>
+                </div>
+            <?php elseif ($_SESSION['Tipo_Usr'] === 'Mod'): ?>
+                <!-- Moderador: debe contactar soporte -->
+                <div class="div-form div-delete">
+                    <h3>Eliminar Cuenta</h3>
+                    <p style="color: #ff8c00; font-weight: bold;">
+                        <i class="fas fa-info-circle"></i>
+                        Para eliminar una cuenta de Moderador es necesario contactar con soporte.
+                    </p>
+                    <p style="text-align: center; margin-top: 15px;">
+                        <a href="mailto:soporte@tollanlefunk.com" style="color: #4d94ff; text-decoration: underline; font-size: 1.1rem;">
+                            <i class="fas fa-envelope"></i> soporte@tollanlefunk.com
+                        </a>
+                    </p>
+                </div>
+            <?php endif; ?>
+            <!-- Administradores (Adm) no ven el cuadro de eliminar cuenta -->
         </section>
     </main>
 

@@ -19,6 +19,15 @@ if (!isset($_SESSION['ID_Usuarios'])) {
     exit;
 }
 
+// SEGURIDAD: Solo usuarios normales pueden eliminar su propia cuenta
+if ($_SESSION['Tipo_Usr'] !== 'Usr') {
+    echo json_encode([
+        'success' => false,
+        'message' => 'No tienes permisos para eliminar esta cuenta. Contacta con soporte.'
+    ]);
+    exit;
+}
+
 /***************************
 * VERIFICAR MÉTODO POST *
 ***************************/
