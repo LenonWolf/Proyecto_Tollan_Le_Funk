@@ -22,7 +22,6 @@
     include 'check_auth.php';
     verificarAutenticacion();
     
-    include 'conexion.php';
     include 'includes/header.php';
     ?>
 

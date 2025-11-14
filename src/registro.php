@@ -17,7 +17,6 @@
 
 <body>
     <?php
-    include 'conexion.php';
     include 'includes/header.php';
     ?>
     

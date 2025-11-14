@@ -1,7 +1,11 @@
 <?php
 // Borrador de partidas
 
-include 'conexion.php'; // Incluir el archivo de conexión a la base de datos
+require_once 'conexion.php';
+
+// Crear conexión con usuario de solo lectura
+$db = new Conexion('usr_del_partida', 'del_partida123');
+$conn = $db->conectar();
 
 // Obtener el ID enviado por POST. 
 // Si no existe, se asigna null gracias al operador null coalescing (??).

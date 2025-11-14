@@ -1,7 +1,12 @@
 <?php
 // Recibir un ID por GET, consultar datos del sistema (descripción, clasificación, tipo, dados y géneros) y devolverlos como JSON.
 
-include "conexion.php"; // Incluir la conexión a la base de datos
+require_once 'conexion.php';
+
+// Crear conexión con usuario de solo lectura
+$db = new Conexion('usr_get_sistema', 'sistema123');
+$conn = $db->conectar();
+
 
 header('Content-Type: application/json; charset=utf-8'); // Definir el encabezado HTTP para indicar que la respuesta será JSON (UTF-8)
 

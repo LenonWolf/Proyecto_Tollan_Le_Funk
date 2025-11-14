@@ -1,7 +1,11 @@
 <?php
 // Responsabilidad: recibir datos por POST, validar entradas, (opcionalmente crear un nuevo DM), e insertar la partida en la BD.
 
-include 'conexion.php'; // Incluir la conexión a la base de datos
+require_once 'conexion.php';
+
+// Crear conexión con usuario de solo lectura
+$db = new Conexion('usr_edit_partida', 'edit_partida123');
+$conn = $db->conectar();
 
 // Función auxiliar para obtener un valor de $_POST.
 // - Si existe, lo recorta (trim) para quitar espacios extra al inicio/fin.

@@ -20,8 +20,12 @@
     include 'src/check_auth.php';
     verificarPermisos(['Adm', 'Mod']); // Solo administradores y moderadores
     
-    // Continuar con el código normal
-    include 'src/conexion.php';
+    require_once 'src/conexion.php';
+
+    // Crear conexión con usuario de solo lectura
+    $db = new Conexion('usr_lector', 'lector123');
+    $conn = $db->conectar();
+
     include 'src/includes/header.php';
 
     // Listas

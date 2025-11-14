@@ -20,9 +20,12 @@
     include 'check_auth.php';
     verificarPermisos(['Adm', 'Mod']); // Solo administradores y moderadores
     
-    // Continuar con el código normal
-    include 'conexion.php';
-    include 'conexion.php'; // Incluir la conexión a la base de datos
+    require_once 'conexion.php';
+
+    // Crear conexión con usuario de solo lectura
+    $db = new Conexion('usr_lector', 'lector123');
+    $conn = $db->conectar();
+
 
     // Obtener el ID de la partida desde la URL (GET).
     // Si no existe, se detiene la ejecución con un mensaje de error.

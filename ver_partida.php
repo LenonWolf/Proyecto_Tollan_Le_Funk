@@ -14,7 +14,13 @@
 
 <body> <!-- Cuerpo del documento -->
     <?php
-    include 'src/conexion.php'; // Incluir la conexión a la base de datos
+    // Incluir la clase de conexión
+    require_once 'src/Conexion.php';
+    
+    // Crear conexión con usuario de solo lectura
+    $db = new Conexion('usr_lector', 'lector123');
+    $conn = $db->conectar();
+    
     include 'src/includes/header.php'; // Incluir el encabezado desde un archivo externo
     ?>
 
@@ -130,6 +136,9 @@
                         } else { // Si no hay resultados
                             echo "<tr><td colspan='13'>No hay partidas registradas.</td></tr>"; // Fila indicando que no hay datos
                         }
+
+                        // Cerrar conexión después de procesar todos los datos
+                        $db->cerrar();
                         ?>
                     </tbody>
                 </table>

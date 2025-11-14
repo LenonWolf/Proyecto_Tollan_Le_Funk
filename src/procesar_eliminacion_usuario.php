@@ -3,7 +3,11 @@
 
 session_start();
 
-include 'conexion.php';
+require_once 'conexion.php';
+
+// Crear conexión con usuario de solo lectura
+$db = new Conexion('usr_del_usuario', 'del_usuario123');
+$conn = $db->conectar();
 
 header('Content-Type: application/json; charset=utf-8');
 
