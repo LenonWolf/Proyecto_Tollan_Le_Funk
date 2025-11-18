@@ -12,7 +12,7 @@
     <link rel="icon" type="image/x-icon" href="assets/img/dragon.ico"> <!-- Icono de la pestaña -->
     <title>Tollan le Funk - Gestión</title> <!-- Titulo de la página -->
 </head>
-
+<!-- PAGINA PARA EL INICIO DEL PROYECTO, GENERALMENTE SIENDO EL ENLACE PREDETERMINADO PARA EL LOGIN Y REGISTRO -->
 <body> <!-- Cuerpo del documento -->
     <?php
     session_start(); // Iniciar sesión para verificar estado de autenticación
@@ -31,7 +31,7 @@
             <div id="panel-control">
                 <!-- Ver Partidas: Disponible para todos (requiere login) -->
                 <a id="btn-fondo-ver" class="btn-fondo" 
-                   href="<?php echo isset($_SESSION['ID_Usuarios']) ? 'ver_partida.php' : 'src/login.php?redirect=' . urlencode('/Tollan_Le_Funk/ver_partida.php'); ?>" 
+                   href="<?php echo isset($_SESSION['ID_Usuarios']) ? 'ver_partida.php' : 'src/login.php?redirect=' . urlencode('/Proyecto_Tollan_Le_Funk/ver_partida.php'); ?>" 
                    aria-label="Ver Partidas">
                     <div class="btn-gestion">
                         <i class="fas fa-list"></i> Ver Partidas
@@ -42,7 +42,7 @@
                 <a id="btn-fondo-crear" class="btn-fondo" 
                    href="<?php 
                        if (!isset($_SESSION['ID_Usuarios'])) {
-                           echo 'src/login.php?redirect=' . urlencode('/Tollan_Le_Funk/crear_partida.php');
+                           echo 'src/login.php?redirect=' . urlencode('/Proyecto_Tollan_Le_Funk/crear_partida.php');
                        } elseif ($_SESSION['Tipo_Usr'] === 'Adm' || $_SESSION['Tipo_Usr'] === 'Mod') {
                            echo 'crear_partida.php';
                        } else {
@@ -62,13 +62,14 @@
                 <a id="btn-fondo-editar" class="btn-fondo" 
                    href="<?php 
                        if (!isset($_SESSION['ID_Usuarios'])) {
-                           echo 'src/login.php?redirect=' . urlencode('/Tollan_Le_Funk/editar_partida.php');
+                           echo 'src/login.php?redirect=' . urlencode('/Proyecto_Tollan_Le_Funk/editar_partida.php');
                        } elseif ($_SESSION['Tipo_Usr'] === 'Adm' || $_SESSION['Tipo_Usr'] === 'Mod') {
                            echo 'editar_partida.php';
                        } else {
                            echo 'ver_partida.php';
                        }
-                   ?>" 
+                   ?>"
+                   
                    aria-label="Editar Partidas">
                     <div class="btn-gestion">
                         <i class="fas fa-edit"></i> Editar Partidas
@@ -96,3 +97,4 @@
     <?php include 'src/includes/footer.php'; ?> <!-- Incluir el pie de página desde un archivo externo -->
 </body>
 </html>
+<!-- GENERAR DOCUMENTACION AL INICIO DEL PROYECTO, PARA PROXIMAS CONSULTAS  -->
