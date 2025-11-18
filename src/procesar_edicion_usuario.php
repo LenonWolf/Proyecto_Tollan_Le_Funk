@@ -3,7 +3,10 @@
 
 session_start();
 
-include 'conexion.php';
+require_once 'conexion.php';
+
+$db = new Conexion('usr_upd_usuarios', 'upd_usuarios123');
+$conn = $db->conectar();
 
 header('Content-Type: application/json; charset=utf-8');
 

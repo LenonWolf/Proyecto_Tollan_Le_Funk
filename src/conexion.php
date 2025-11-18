@@ -1,38 +1,62 @@
 <?php
-
-/********************************
-* CONFIGURACIÓN DE CREDENCIALES *
-********************************/
-
-$host = "localhost"; // Nombre del servidor de la base de datos (localhost si la BD está en el mismo servidor que la app)
-$user = "root"; // Usuario con permisos para acceder a la base de datos
-$password = "#1W2O3L4F5m"; // Contraseña del usuario anterior
-$database = "tollan"; // Nombre de la base de datos a la que se conectará la aplicación
-
-/***********************************
-* CREACIÓN DE LA CONEXIÓN (MySQLi) *
-***********************************/
-
-// Crear un nuevo objeto de conexión MySQLi usando los parámetros anteriores.
-// Esto intenta establecer una conexión TCP al servidor MySQL.
-$conn = new mysqli($host, $user, $password, $database);
-
-/**************************************
-* VERIFICACIÓN DE ERRORES DE CONEXIÓN *
-**************************************/
-
-// La propiedad connect_error contiene el mensaje de error si la conexión falló.
-// Si hay error, se detiene la ejecución del script con un mensaje explicativo.
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+/**
+ * Clase Conexion
+ * 
+ * Gestiona conexiones simples a MySQL con diferentes usuarios.
+ * El usuario y contraseña se pasan al crear la instancia.
+ */
+class Conexion {
+    
+    private $host = "localhost";
+    private $user;
+    private $password;
+    private $database = "tollan";
+    private $conn;
+    
+    /**
+     * Constructor
+     * 
+     * @param string $user Usuario de MySQL
+     * @param string $password Contraseña del usuario MySQL
+     */
+    public function __construct($user, $password) {
+        $this->user = $user;
+        $this->password = $password;
+    }
+    
+    /**
+     * Método para abrir conexión
+     * 
+     * @return mysqli Objeto de conexión MySQLi
+     */
+    public function conectar() {
+        $this->conn = new mysqli($this->host, $this->user, $this->password, $this->database);
+        
+        if ($this->conn->connect_error) {
+            die("Conexión fallida: " . $this->conn->connect_error);
+        }
+        
+        $this->conn->set_charset("utf8");
+        
+        return $this->conn;
+    }
+    
+    /**
+     * Método para cerrar conexión
+     */
+    public function cerrar() {
+        if ($this->conn) {
+            $this->conn->close();
+        }
+    }
+    
+    /**
+     * Obtener conexión actual
+     * 
+     * @return mysqli|null
+     */
+    public function getConexion() {
+        return $this->conn;
+    }
 }
-
-/********************************
-* CONFIGURACIÓN DE CODIFICACIÓN *
-********************************/
-
-// Establecer el conjunto de caracteres a UTF-8 para:
-// - Interpretar correctamente acentos y caracteres especiales.
-// - Evitar problemas de codificación al enviar/recibir datos.
-$conn->set_charset("utf8");
 ?>

@@ -1,7 +1,17 @@
 <?php
 // Responsabilidad: recibir datos por POST, validar entradas, (opcionalmente crear un nuevo DM), e insertar la partida en la BD.
 
-include 'conexion.php'; // Incluir la conexión a la base de datos
+session_start(); // Iniciar sesión para obtener el usuario logueado
+
+// Verificar autenticación
+require_once 'check_auth.php';
+verificarPermisos(['Adm', 'Mod']); // Solo Admin y Moderadores pueden crear partidas
+
+require_once 'conexion.php';
+
+// Crear conexión con usuario de solo lectura
+$db = new Conexion('usr_edit_partida', 'edit_partida123');
+$conn = $db->conectar();
 
 // Función auxiliar para obtener un valor de $_POST.
 // - Si existe, lo recorta (trim) para quitar espacios extra al inicio/fin.
@@ -12,6 +22,9 @@ function post($k){ return isset($_POST[$k]) ? trim($_POST[$k]) : null; }
 /******************************************
 * EXTRACCIÓN DE PARÁMETROS DEL FORMULARIO *
 ******************************************/
+
+// Obtener el ID del usuario de la sesión
+$ID_Usuarios = $_SESSION['ID_Usuarios'];
 
 $ID_Sistema = intval(post('ID_Sistema')); // Sistema seleccionado (entero)
 $ID_DM = post('ID_DM'); // Puede ser ID existente o 'new'
@@ -60,6 +73,7 @@ if (!empty($errors)) {
 if ($ID_DM === 'new' || $ID_DM === '' ) {
     // Validar que se hayan proporcionado los datos indispensables del nuevo DM
     if (empty($dm_nombre) || empty($dm_fecha_nac)) {
+        $db->cerrar();
         header("Location: ../crear_partida.php?error=" . urlencode("Datos del DM incompletos."));
         exit;
     }
@@ -82,6 +96,7 @@ if ($ID_DM === 'new' || $ID_DM === '' ) {
 
         // Ejecutar inserción y validar posibles fallos
         if (!$stmt2->execute()) {
+            $db->cerrar();
             header("Location: ../crear_partida.php?error=" . urlencode("Error al crear DM."));
             exit;
         }
@@ -91,6 +106,7 @@ if ($ID_DM === 'new' || $ID_DM === '' ) {
 } else {
     $dm_id_to_use = intval($ID_DM); // El usuario seleccionó un DM existente: normalizar y validar el ID
     if ($dm_id_to_use <= 0) {
+        $db->cerrar();
         header("Location: ../crear_partida.php?error=" . urlencode("DM inválido."));
         exit;
     }
@@ -101,13 +117,14 @@ if ($ID_DM === 'new' || $ID_DM === '' ) {
 **************************/
 
 // Preparar inserción con todos los campos requeridos.
-$sql_insert_partida = "INSERT INTO partida (ID_Sistema, ID_DM, Titulo, Fecha_Inic, Horario, Periocidad, No_Jugadores)
-                       VALUES (?, ?, ?, ?, ?, ?, ?)";
+$sql_insert_partida = "INSERT INTO partida (ID_Usuarios, ID_Sistema, ID_DM, Titulo, Fecha_Inic, Horario, Periocidad, No_Jugadores)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 $stmtp = $conn->prepare($sql_insert_partida);
 
 // Enlazar parámetros según sus tipos:
 // i = integer, s = string. Orden debe coincidir con la consulta.
-$stmtp->bind_param('iissssi',
+$stmtp->bind_param('iiissssi',
+    $ID_Usuarios,
     $ID_Sistema,
     $dm_id_to_use,
     $Titulo,
@@ -120,6 +137,7 @@ $stmtp->bind_param('iissssi',
 // Ejecutar la inserción y capturar errores en caso de fallo
 if (!$stmtp->execute()) {
     // Redirigir con detalle del error del servidor (útil para depuración controlada)
+    $db->cerrar();
     header("Location: ../crear_partida.php?error=" . urlencode("Error al crear partida: " . $conn->error));
     exit;
 }
@@ -127,6 +145,8 @@ if (!$stmtp->execute()) {
 /*********************
 * RESPUESTA DE ÉXITO *
 *********************/
+
+$db->cerrar();
 
 header("Location: ../ver_partida.php?created=1"); // Si todo salió bien, redirigir a la vista de confirmación/listado.
 exit; // Finalizar el script para evitar cualquier salida adicional

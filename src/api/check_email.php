@@ -1,7 +1,10 @@
 <?php
 // API para verificar si un correo ya está registrado
 
-include '../conexion.php'; // Incluir la conexión a la base de datos
+require_once '../conexion.php';
+
+$db = new Conexion('usr_lec_usuarios', 'lec_usuarios123');
+$conn = $db->conectar();
 
 header('Content-Type: application/json; charset=utf-8'); // Respuesta en formato JSON
 

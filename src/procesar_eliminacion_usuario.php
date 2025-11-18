@@ -3,7 +3,11 @@
 
 session_start();
 
-include 'conexion.php';
+require_once 'conexion.php';
+
+// Crear conexión con usuario de solo lectura
+$db = new Conexion('usr_del_usuario', 'del_usuario123');
+$conn = $db->conectar();
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -15,6 +19,15 @@ if (!isset($_SESSION['ID_Usuarios'])) {
     echo json_encode([
         'success' => false,
         'message' => 'Sesión no válida'
+    ]);
+    exit;
+}
+
+// SEGURIDAD: Solo usuarios normales pueden eliminar su propia cuenta
+if ($_SESSION['Tipo_Usr'] !== 'Usr') {
+    echo json_encode([
+        'success' => false,
+        'message' => 'No tienes permisos para eliminar esta cuenta. Contacta con soporte.'
     ]);
     exit;
 }

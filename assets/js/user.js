@@ -204,24 +204,26 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.cambiarPassword();
                 });
                 
-                // Formulario de eliminación
+                // Formulario de eliminación (solo si existe - usuarios normales)
                 const formEliminacion = document.getElementById('form-eliminar-usuario');
-                const inputConfirmarDelete = document.getElementById('confirmar_delete');
-                const inputConfirmarEliminacion = document.getElementById('confirmar_eliminacion');
-                
-                inputConfirmarDelete.addEventListener('input', (e) => {
-                    this.confirmarDelete = e.target.value;
-                    this.actualizarMensajes();
-                });
-                
-                inputConfirmarEliminacion.addEventListener('input', (e) => {
-                    this.confirmarEliminacion = e.target.value;
-                });
-                
-                formEliminacion.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.eliminarCuenta();
-                });
+                if (formEliminacion) {
+                    const inputConfirmarDelete = document.getElementById('confirmar_delete');
+                    const inputConfirmarEliminacion = document.getElementById('confirmar_eliminacion');
+                    
+                    inputConfirmarDelete.addEventListener('input', (e) => {
+                        this.confirmarDelete = e.target.value;
+                        this.actualizarMensajes();
+                    });
+                    
+                    inputConfirmarEliminacion.addEventListener('input', (e) => {
+                        this.confirmarEliminacion = e.target.value;
+                    });
+                    
+                    formEliminacion.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.eliminarCuenta();
+                    });
+                }
             },
             
             async verificarEmailDisponible(email) {
@@ -338,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 
-                const confirmar = confirm('⚠️ ADVERTENCIA ⚠️\n\n¿Estás COMPLETAMENTE SEGURO de que deseas eliminar tu cuenta?\n\nEsta acción es IRREVERSIBLE y perderás:\n- Todos tus datos\n- Acceso a la plataforma\n\n¿Deseas continuar?');
+                const confirmar = confirm('⚠️ ADVERTENCIA ⚠️\n\n¿Estás COMPLETAMENTE SEGURO de que deseas eliminar tu cuenta?\n\nEsta acción es IRREVERSIBLE y perderás:\n- Todos tus datos\n- Tu historial\n- Acceso a la plataforma\n\n¿Deseas continuar?');
                 
                 if (!confirmar) return;
                 
@@ -404,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     spanConfirmarPass.className = this.claseConfirmarPassword;
                 }
                 
-                // Mensaje confirmar delete
+                // Mensaje confirmar delete (solo si existe)
                 const spanConfirmarDelete = document.getElementById('mensaje-confirmar-delete');
                 if (spanConfirmarDelete) {
                     spanConfirmarDelete.textContent = this.mensajeConfirmarDelete;

@@ -1,7 +1,12 @@
 <?php
 // API para obtener la lista de todos los Dungeon Masters disponibles
 
-include '../conexion.php';
+require_once '../Conexion.php';
+
+// Crear conexión con usuario de solo lectura
+$db = new Conexion('usr_lector', 'lector123');
+$conn = $db->conectar();
+
 header('Content-Type: application/json; charset=utf-8');
 
 $sql = "SELECT ID_DM, Nombre FROM dm ORDER BY Nombre ASC";

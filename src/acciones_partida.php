@@ -1,7 +1,11 @@
 <?php
 // Recibir acciones vía POST y actualizar el estado de la partida correspondiente en la base de datos
 
-include 'conexion.php'; // Incluir la conexión a MySQL
+require_once 'conexion.php';
+
+// Crear conexión con usuario de solo lectura
+$db = new Conexion('usr_edit_partida', 'edit_partida123');
+$conn = $db->conectar();
 
 /**************************************
 * VALIDACIÓN DE PARÁMETROS DE ENTRADA *

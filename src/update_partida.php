@@ -1,7 +1,12 @@
 <?php
 // Recibir datos por POST (y el ID por GET), validar entradas, (opcionalmente crear un nuevo DM) y actualizar la partida.
 
-include 'conexion.php'; // Incluir la conexión a la base de datos
+require_once 'conexion.php';
+
+// Crear conexión con usuario de solo lectura
+$db = new Conexion('usr_edit_partida', 'edit_partida123');
+$conn = $db->conectar();
+
 
 // Función auxiliar para obtener un campo de $_POST.
 // - Si existe, recorta espacios con trim.
