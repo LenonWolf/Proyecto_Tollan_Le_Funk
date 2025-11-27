@@ -31,7 +31,7 @@
             <div id="panel-control">
                 <!-- Ver Partidas: Disponible para todos (requiere login) -->
                 <a id="btn-fondo-ver" class="btn-fondo" 
-                   href="<?php echo isset($_SESSION['ID_Usuarios']) ? 'ver_partida.php' : 'src/login.php?redirect=' . urlencode('/Proyecto_Tollan_Le_Funk/ver_partida.php'); ?>" 
+                   href="<?php echo isset($_SESSION['ID_Usuarios']) ? 'ver_partida.php' : 'src/login.php?redirect=' . urlencode('/Tollan_Le_Funk/ver_partida.php'); ?>" 
                    aria-label="Ver Partidas">
                     <div class="btn-gestion">
                         <i class="fas fa-list"></i> Ver Partidas
@@ -42,7 +42,7 @@
                 <a id="btn-fondo-crear" class="btn-fondo" 
                    href="<?php 
                        if (!isset($_SESSION['ID_Usuarios'])) {
-                           echo 'src/login.php?redirect=' . urlencode('/Proyecto_Tollan_Le_Funk/crear_partida.php');
+                           echo 'src/login.php?redirect=' . urlencode('/Tollan_Le_Funk/crear_partida.php');
                        } elseif ($_SESSION['Tipo_Usr'] === 'Adm' || $_SESSION['Tipo_Usr'] === 'Mod') {
                            echo 'crear_partida.php';
                        } else {
@@ -62,7 +62,7 @@
                 <a id="btn-fondo-editar" class="btn-fondo" 
                    href="<?php 
                        if (!isset($_SESSION['ID_Usuarios'])) {
-                           echo 'src/login.php?redirect=' . urlencode('/Proyecto_Tollan_Le_Funk/editar_partida.php');
+                           echo 'src/login.php?redirect=' . urlencode('/Tollan_Le_Funk/editar_partida.php');
                        } elseif ($_SESSION['Tipo_Usr'] === 'Adm' || $_SESSION['Tipo_Usr'] === 'Mod') {
                            echo 'editar_partida.php';
                        } else {
