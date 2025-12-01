@@ -1,13 +1,4 @@
 <?php
-header('Content-Type: application/json');
-echo json_encode([
-    "success" => true,
-    "message" => "Prueba OK",
-    "redirect" => "index.php"
-]);
-?>
-
-<?php
 
 // Procesamiento de login con validación de credenciales
 
@@ -19,7 +10,7 @@ require_once 'conexion.php';
 $db = new Conexion('usr_lec_usuarios', 'lec_usuarios123');
 $conn = $db->conectar();
 
-header(header: 'Content-Type: application/json; charset=utf-8'); // Respuesta JSON
+header('Content-Type: application/json; charset=utf-8'); // Respuesta JSON
 
 /***************************
 * VERIFICAR MÉTODO POST *
