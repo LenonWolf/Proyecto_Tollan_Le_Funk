@@ -30,14 +30,34 @@ class Conexion {
      * @return mysqli Objeto de conexión MySQLi
      */
     public function conectar() {
-        $this->conn = new mysqli($this->host, $this->user, $this->password, $this->database);
-        
-        if ($this->conn->connect_error) {
-            die("Conexión fallida: " . $this->conn->connect_error);
+        // Inicializar conexión
+        $this->conn = mysqli_init();
+
+        // Configurar SSL: ruta al certificado
+        mysqli_ssl_set(
+            $this->conn,
+            null, // clave cliente
+            null, // certificado cliente
+            __DIR__ . "/certs/DigiCertGlobalRootCA.crt.pem", // certificado CA
+            null, // directorio de certificados
+            null  // cipher
+        );
+
+        // Conectar con SSL obligatorio
+        if (!mysqli_real_connect(
+            $this->conn,
+            $this->host,
+            $this->user,
+            $this->password,
+            $this->database,
+            3306,
+            null,
+            MYSQLI_CLIENT_SSL
+        )) {
+            die("Conexión fallida: " . mysqli_connect_error());
         }
-        
+
         $this->conn->set_charset("utf8");
-        
         return $this->conn;
     }
     
