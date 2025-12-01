@@ -1,4 +1,12 @@
 <?php
+// Cargar configuración de rutas
+// Si config.php está en src/, ajustar la ruta según la ubicación del header
+if (file_exists(__DIR__ . '/../config.php')) {
+    require_once __DIR__ . '/../config.php';
+} elseif (file_exists(__DIR__ . '/../../src/config.php')) {
+    require_once __DIR__ . '/../../src/config.php';
+}
+
 // Iniciar sesión si no está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -23,15 +31,15 @@ if (session_status() === PHP_SESSION_NONE) {
                 
                 <?php if ($_SESSION['Tipo_Usr'] === 'Adm' || $_SESSION['Tipo_Usr'] === 'Mod'): ?>
                     <!-- Administrador o Moderador: acceso completo -->
-                    <li><a class="a-menus" href="/Tollan_Le_Funk/index.php" aria-label="Inicio">Inicio</a></li>
-                    <li><a class="a-menus" href="/Tollan_Le_Funk/ver_partida.php" aria-label="Ver Partidas">Ver</a></li>
-                    <li><a class="a-menus" href="/Tollan_Le_Funk/crear_partida.php" aria-label="Crear Partida">Crear</a></li>
-                    <li><a class="a-menus" href="/Tollan_Le_Funk/editar_partida.php" aria-label="Editar Partidas">Editar</a></li>
+                    <li><a class="a-menus" href="<?php echo url('index.php'); ?>" aria-label="Inicio">Inicio</a></li>
+                    <li><a class="a-menus" href="<?php echo url('ver_partida.php'); ?>" aria-label="Ver Partidas">Ver</a></li>
+                    <li><a class="a-menus" href="<?php echo url('crear_partida.php'); ?>" aria-label="Crear Partida">Crear</a></li>
+                    <li><a class="a-menus" href="<?php echo url('editar_partida.php'); ?>" aria-label="Editar Partidas">Editar</a></li>
                     
                 <?php else: ?>
                     <!-- Usuario normal: solo ver partidas -->
-                    <li><a class="a-menus" href="/Tollan_Le_Funk/index.php" aria-label="Inicio">Inicio</a></li>
-                    <li><a class="a-menus" href="/Tollan_Le_Funk/ver_partida.php" aria-label="Ver Partidas">Ver</a></li>
+                    <li><a class="a-menus" href="<?php echo url('index.php'); ?>" aria-label="Inicio">Inicio</a></li>
+                    <li><a class="a-menus" href="<?php echo url('ver_partida.php'); ?>" aria-label="Ver Partidas">Ver</a></li>
                 <?php endif; ?>
                 
                 <!-- Menú desplegable del usuario -->
@@ -42,18 +50,18 @@ if (session_status() === PHP_SESSION_NONE) {
                         <i class="fas fa-chevron-up icon-up"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/Tollan_Le_Funk/src/user.php"><i class="fas fa-user-edit"></i> Perfil</a></li>
-                        <li><a href="/Tollan_Le_Funk/src/logout.php"><i class="fas fa-sign-out-alt"></i> Salir</a></li>
+                        <li><a href="<?php echo url('src/user.php'); ?>"><i class="fas fa-user-edit"></i> Perfil</a></li>
+                        <li><a href="<?php echo url('src/logout.php'); ?>"><i class="fas fa-sign-out-alt"></i> Salir</a></li>
                     </ul>
                 </li>
                 
             <?php else: ?>
                 <!-- Usuario no autenticado -->
-                <li><a class="a-menus" href="/Tollan_Le_Funk/index.php" aria-label="Inicio">Inicio</a></li>
-                <li><a class="a-menus" href="/Tollan_Le_Funk/src/login.php" aria-label="Iniciar sesión">
+                <li><a class="a-menus" href="<?php echo url('index.php'); ?>" aria-label="Inicio">Inicio</a></li>
+                <li><a class="a-menus" href="<?php echo url('src/login.php'); ?>" aria-label="Iniciar sesión">
                     Login
                 </a></li>
-                <li><a class="a-menus" href="/Tollan_Le_Funk/src/registro.php" aria-label="Registrarse">
+                <li><a class="a-menus" href="<?php echo url('src/registro.php'); ?>" aria-label="Registrarse">
                     Registro
                 </a></li>
             <?php endif; ?>
@@ -61,4 +69,4 @@ if (session_status() === PHP_SESSION_NONE) {
     </nav>
 </header>
 
-<script src="/Tollan_Le_Funk/assets/js/header_dinamic.js"></script>
+<script src="<?php echo url('assets/js/header_dinamic.js'); ?>"></script>
