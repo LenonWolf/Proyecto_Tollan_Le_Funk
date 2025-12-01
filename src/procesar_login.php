@@ -3,6 +3,7 @@
 
 session_start(); // Iniciar sesión
 
+require_once 'config.php'; // Cargar configuración de rutas
 require_once 'conexion.php';
 
 $db = new Conexion('usr_lec_usuarios', 'lec_usuarios123');
@@ -77,6 +78,7 @@ if ($result->num_rows === 0) {
         'message' => 'Correo o contraseña incorrectos'
     ]);
     $stmt->close();
+    $db->cerrar();
     exit;
 }
 
@@ -93,6 +95,7 @@ if (!password_verify($password, $row['Contraseña'])) {
         'success' => false,
         'message' => 'Correo o contraseña incorrectos'
     ]);
+    $db->cerrar();
     exit;
 }
 
@@ -115,13 +118,13 @@ if (!$redirect) {
     switch ($row['Tipo_Usr']) {
         case 'Adm':
         case 'Mod':
-            $redirect = '/Tollan_Le_Funk/index.php';
+            $redirect = url('index.php');
             break;
         case 'Usr':
-            $redirect = '/Tollan_Le_Funk/ver_partida.php';
+            $redirect = url('ver_partida.php');
             break;
         default:
-            $redirect = '/Tollan_Le_Funk/index.php';
+            $redirect = url('index.php');
     }
 } else {
     // Verificar si tiene permisos para la página solicitada
@@ -139,7 +142,7 @@ echo json_encode([
     'tipo_usuario' => $row['Tipo_Usr']
 ]);
 
-$conn->close();
+$db->cerrar();
 
 /********************************
 * FUNCIÓN DE VALIDACIÓN DE ACCESO *
@@ -148,13 +151,13 @@ $conn->close();
 function validarAcceso($pagina, $tipo_usr) {
     // Páginas que requieren permisos de administrador o moderador
     $paginasRestringidas = [
-        '/Tollan_Le_Funk/crear_partida.php',
-        '/Tollan_Le_Funk/editar_partida.php'
+        url('crear_partida.php'),
+        url('editar_partida.php')
     ];
     
     // Si es usuario normal y trata de acceder a páginas restringidas
     if ($tipo_usr === 'Usr' && in_array($pagina, $paginasRestringidas)) {
-        return '/Tollan_Le_Funk/ver_partida.php'; // Redirigir a ver partidas
+        return url('ver_partida.php'); // Redirigir a ver partidas
     }
     
     return $pagina; // Permitir acceso

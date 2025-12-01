@@ -64,7 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         formData.append('redirect', this.redirect);
                     }
                     
-                    const response = await fetch('/Tollan_Le_Funk/src/procesar_login.php', {
+                    // Usar ruta relativa en lugar de absoluta
+                    const response = await fetch('src/procesar_login.php', {
                         method: 'POST',
                         body: formData
                     });
@@ -73,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     if (data.success) {
                         alert(data.message);
+                        // Redirigir usando la URL que viene del servidor
                         window.location.href = data.redirect;
                     } else {
                         alert('Error: ' + data.message);
