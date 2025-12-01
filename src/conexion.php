@@ -7,7 +7,7 @@
  */
 class Conexion {
     
-    private $host = "localhost";
+    private $host = "tollan-le-funk-server.mysql.database.azure.com";
     private $user;
     private $password;
     private $database = "tollan";
