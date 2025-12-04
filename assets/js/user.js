@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.actualizarMensajes();
                     
                     try {
-                        const response = await fetch(`/Tollan_Le_Funk/src/api/check_email.php?email=${encodeURIComponent(email)}`);
+                        const response = await fetch(`/Proyecto_Tollan_Le_Funk/src/api/check_email.php?email=${encodeURIComponent(email)}`);
                         const data = await response.json();
                         
                         if (data.success) {
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     formData.append('nombre', this.nombre);
                     formData.append('correo', this.correo);
                     
-                    const response = await fetch('/Tollan_Le_Funk/src/procesar_edicion_usuario.php', {
+                    const response = await fetch('/Proyecto_Tollan_Le_Funk/src/procesar_edicion_usuario.php', {
                         method: 'POST',
                         body: formData
                     });
@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     formData.append('password_actual', this.passwordActual);
                     formData.append('nueva_password', this.nuevaPassword);
                     
-                    const response = await fetch('/Tollan_Le_Funk/src/procesar_cambio_password.php', {
+                    const response = await fetch('/Proyecto_Tollan_Le_Funk/src/procesar_cambio_password.php', {
                         method: 'POST',
                         body: formData
                     });
@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     formData.append('confirmar_delete', this.confirmarDelete);
                     formData.append('password', this.confirmarEliminacion);
                     
-                    const response = await fetch('/Tollan_Le_Funk/src/procesar_eliminacion_usuario.php', {
+                    const response = await fetch('/Proyecto_Tollan_Le_Funk/src/procesar_eliminacion_usuario.php', {
                         method: 'POST',
                         body: formData
                     });
@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     if (data.success) {
                         alert('Tu cuenta ha sido eliminada. Serás redirigido al inicio.');
-                        window.location.href = '/Tollan_Le_Funk/index.php';
+                        window.location.href = '/Proyecto_Tollan_Le_Funk/index.php';
                     } else {
                         alert('Error: ' + data.message);
                     }

@@ -96,4 +96,4 @@ $id_dm = $partida['ID_DM'] ?? '';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js"></script>
 
 <!-- Script Vue externo para el formulario -->
-<script src="/Tollan_Le_Funk/assets/js/form_partida_vue.js"></script>
+<script src="/Proyecto_Tollan_Le_Funk/assets/js/form_partida_vue.js"></script>

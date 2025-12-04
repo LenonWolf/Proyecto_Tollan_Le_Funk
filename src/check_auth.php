@@ -12,7 +12,7 @@ function verificarAutenticacion() {
     if (!isset($_SESSION['ID_Usuarios'])) {
         // Guardar la página actual para redirigir después del login
         $paginaActual = $_SERVER['PHP_SELF'];
-        header("Location: /Tollan_Le_Funk/src/login.php?redirect=" . urlencode($paginaActual));
+        header("Location: /Proyecto_Tollan_Le_Funk/src/login.php?redirect=" . urlencode($paginaActual));
         exit;
     }
 }
@@ -31,10 +31,10 @@ function verificarPermisos($rolesPermitidos = ['Adm', 'Mod', 'Usr']) {
         // Si no tiene permisos, redirigir según su rol
         switch ($_SESSION['Tipo_Usr']) {
             case 'Usr':
-                header("Location: /Tollan_Le_Funk/ver_partida.php");
+                header("Location: /Proyecto_Tollan_Le_Funk/ver_partida.php");
                 break;
             default:
-                header("Location: /Tollan_Le_Funk/index.php");
+                header("Location: /Proyecto_Tollan_Le_Funk/index.php");
         }
         exit;
     }

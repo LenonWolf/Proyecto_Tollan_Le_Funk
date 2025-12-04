@@ -7,10 +7,10 @@
  */
 class Conexion {
     
-    private $host = "localhost";
-    private $user;
-    private $password;
-    private $database = "tollan";
+    private $host = "";
+    private $user = "";
+    private $password = "";
+    private $database = "";
     private $conn;
     
     /**

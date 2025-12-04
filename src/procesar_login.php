@@ -115,13 +115,13 @@ if (!$redirect) {
     switch ($row['Tipo_Usr']) {
         case 'Adm':
         case 'Mod':
-            $redirect = '/Tollan_Le_Funk/index.php';
+            $redirect = '/Proyecto_Tollan_Le_Funk/index.php';
             break;
         case 'Usr':
-            $redirect = '/Tollan_Le_Funk/ver_partida.php';
+            $redirect = '/Proyecto_Tollan_Le_Funk/ver_partida.php';
             break;
         default:
-            $redirect = '/Tollan_Le_Funk/index.php';
+            $redirect = '/Proyecto_Tollan_Le_Funk/index.php';
     }
 } else {
     // Verificar si tiene permisos para la página solicitada
@@ -148,13 +148,13 @@ $conn->close();
 function validarAcceso($pagina, $tipo_usr) {
     // Páginas que requieren permisos de administrador o moderador
     $paginasRestringidas = [
-        '/Tollan_Le_Funk/crear_partida.php',
-        '/Tollan_Le_Funk/editar_partida.php'
+        '/Proyecto_Tollan_Le_Funk/crear_partida.php',
+        '/Proyecto_Tollan_Le_Funk/editar_partida.php'
     ];
     
     // Si es usuario normal y trata de acceder a páginas restringidas
     if ($tipo_usr === 'Usr' && in_array($pagina, $paginasRestringidas)) {
-        return '/Tollan_Le_Funk/ver_partida.php'; // Redirigir a ver partidas
+        return '/Proyecto_Tollan_Le_Funk/ver_partida.php'; // Redirigir a ver partidas
     }
     
     return $pagina; // Permitir acceso

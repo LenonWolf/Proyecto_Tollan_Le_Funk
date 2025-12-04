@@ -46,7 +46,7 @@ async function cargarInfoSistema(id) {
     try {
         // Petición al endpoint que devuelve JSON con la info del sistema
         // encodeURIComponent asegura que el ID se envíe seguro en la URL.
-        const resp = await fetch('/Tollan_Le_Funk/src/get_sistema.php?id=' + encodeURIComponent(id));
+        const resp = await fetch('/Proyecto_Tollan_Le_Funk/src/get_sistema.php?id=' + encodeURIComponent(id));
 
         // Convertir la respuesta HTTP a objeto JS (espera JSON puro)
         const data = await resp.json();

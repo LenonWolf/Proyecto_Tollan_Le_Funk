@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.actualizarMensajes();
                     
                     try {
-                        const response = await fetch(`/Tollan_Le_Funk/src/api/check_email.php?email=${encodeURIComponent(email)}`);
+                        const response = await fetch(`/Proyecto_Tollan_Le_Funk/src/api/check_email.php?email=${encodeURIComponent(email)}`);
                         const data = await response.json();
                         
                         if (data.success) {
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     formData.append('email', this.email);
                     formData.append('password', this.password);
                     
-                    const response = await fetch('/Tollan_Le_Funk/src/procesar_registro.php', {
+                    const response = await fetch('/Proyecto_Tollan_Le_Funk/src/procesar_registro.php', {
                         method: 'POST',
                         body: formData
                     });
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     if (data.success) {
                         alert('¡Registro exitoso! 🎉\n\nYa puedes iniciar sesión con tu cuenta.');
-                        window.location.href = '/Tollan_Le_Funk/src/login.php';
+                        window.location.href = '/Proyecto_Tollan_Le_Funk/src/login.php';
                     } else {
                         alert('Error: ' + data.message);
                         btnRegistrar.disabled = false;

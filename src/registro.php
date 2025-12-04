@@ -56,6 +56,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js"></script>
     
     <!-- Script de registro con validaciones -->
-    <script src="/Tollan_Le_Funk/assets/js/registro.js"></script>
+    <script src="/Proyecto_Tollan_Le_Funk/assets/js/registro.js"></script>
 </body>
 </html>
