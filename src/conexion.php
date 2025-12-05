@@ -7,10 +7,18 @@
  */
 class Conexion {
     
+<<<<<<< Updated upstream
     private $host = "";
     private $user = "";
     private $password = "";
     private $database = "";
+=======
+    private $host = "127.0.0.1";
+    private $user;
+    private $password;
+    private $database = "tollan";
+    private $port = 3306;
+>>>>>>> Stashed changes
     private $conn;
     
     /**
@@ -30,6 +38,7 @@ class Conexion {
      * @return mysqli Objeto de conexión MySQLi
      */
     public function conectar() {
+<<<<<<< Updated upstream
         $this->conn = new mysqli($this->host, $this->user, $this->password, $this->database);
         
         if ($this->conn->connect_error) {
@@ -38,6 +47,16 @@ class Conexion {
         
         $this->conn->set_charset("utf8");
         
+=======
+        // Inicializar conexión
+        $this->conn = new mysqli($this->host, $this->user, $this->password, $this->database, $this->port);
+
+	if ($this->conn->connect_error){
+	    die("Conexion fallida: " . $this->conn->connect_error);
+        }
+	$this->conn->set_charset("utf8");
+        // Establecer charset UTF-8
+>>>>>>> Stashed changes
         return $this->conn;
     }
     
