@@ -4,6 +4,9 @@
 
 session_start();
 
+// Cargar la configuración para usar la función url()
+require_once __DIR__ . '/config.php';
+
 /**
  * Verificar si el usuario está autenticado
  * Si no lo está, redirigir al login con la página de retorno
@@ -12,7 +15,9 @@ function verificarAutenticacion() {
     if (!isset($_SESSION['ID_Usuarios'])) {
         // Guardar la página actual para redirigir después del login
         $paginaActual = $_SERVER['PHP_SELF'];
-        header("Location: /Tollan_Le_Funk/src/login.php?redirect=" . urlencode($paginaActual));
+        
+        // Usar la función url() para generar la ruta correcta
+        header("Location: " . url('src/login.php') . "?redirect=" . urlencode($paginaActual));
         exit;
     }
 }
@@ -31,10 +36,10 @@ function verificarPermisos($rolesPermitidos = ['Adm', 'Mod', 'Usr']) {
         // Si no tiene permisos, redirigir según su rol
         switch ($_SESSION['Tipo_Usr']) {
             case 'Usr':
-                header("Location: /Tollan_Le_Funk/ver_partida.php");
+                header("Location: " . url('ver_partida.php'));
                 break;
             default:
-                header("Location: /Tollan_Le_Funk/index.php");
+                header("Location: " . url('index.php'));
         }
         exit;
     }

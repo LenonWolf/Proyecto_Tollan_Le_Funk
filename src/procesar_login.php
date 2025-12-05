@@ -114,6 +114,11 @@ $_SESSION['Tipo_Usr'] = $row['Tipo_Usr'];
 // Determinar la página de redirección según si venía de alguna página específica
 $redirect = isset($_POST['redirect']) ? $_POST['redirect'] : null;
 
+// Limpiar el redirect si viene con /Tollan_Le_Funk/
+if ($redirect) {
+    $redirect = limpiarRuta($redirect);
+}
+
 // Si no hay redirect o no tiene permisos, redirigir según el rol
 if (!$redirect) {
     switch ($row['Tipo_Usr']) {
@@ -144,6 +149,25 @@ echo json_encode([
 ]);
 
 $db->cerrar();
+
+/********************************
+* FUNCIÓN PARA LIMPIAR RUTAS *
+********************************/
+
+/**
+ * Limpia las rutas que vienen con /Tollan_Le_Funk/ del entorno local
+ * y las convierte a rutas compatibles con el entorno actual
+ */
+function limpiarRuta($ruta) {
+    // Remover /Tollan_Le_Funk/ si existe
+    $ruta = str_replace('/Tollan_Le_Funk/', '', $ruta);
+    
+    // Remover slash inicial si existe
+    $ruta = ltrim($ruta, '/');
+    
+    // Aplicar la función url() para generar la ruta correcta
+    return url($ruta);
+}
 
 /********************************
 * FUNCIÓN DE VALIDACIÓN DE ACCESO *

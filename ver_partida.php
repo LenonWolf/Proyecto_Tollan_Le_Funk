@@ -15,7 +15,7 @@
 <body> <!-- Cuerpo del documento -->
     <?php
     // Incluir la clase de conexión
-    require_once 'src/Conexion.php';
+    require_once 'src/conexion.php';
     
     // Crear conexión con usuario de solo lectura
     $db = new Conexion('usr_lector', 'lector123');
