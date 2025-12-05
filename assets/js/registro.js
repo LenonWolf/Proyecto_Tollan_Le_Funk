@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.actualizarMensajes();
                     
                     try {
-                        const response = await fetch(`/Proyecto_Tollan_Le_Funk/src/api/check_email.php?email=${encodeURIComponent(email)}`);
+                        const response = await fetch(`/src/api/check_email.php?email=${encodeURIComponent(email)}`);
                         const data = await response.json();
                         
                         if (data.success) {
