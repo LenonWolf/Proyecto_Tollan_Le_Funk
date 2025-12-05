@@ -9,10 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 email: '',
                 password: '',
                 enviando: false,
-                redirect: null
+                redirect: null,
+                basePath: '' // Ruta base del proyecto
             }
         },
         mounted() {
+            // Detectar la ruta base del proyecto
+            this.detectarBasePath();
+            
             // Obtener el parámetro redirect de la URL si existe
             const urlParams = new URLSearchParams(window.location.search);
             this.redirect = urlParams.get('redirect');
@@ -20,6 +24,30 @@ document.addEventListener('DOMContentLoaded', function() {
             this.inicializarFormulario();
         },
         methods: {
+            /**
+             * Detectar la ruta base según el dominio
+             */
+            detectarBasePath() {
+                const hostname = window.location.hostname;
+                
+                // Si está en Azure (.azurewebsites.net), la ruta base es /
+                if (hostname.includes('azurewebsites.net')) {
+                    this.basePath = '/';
+                } else {
+                    // En local, usar /Tollan_Le_Funk/
+                    this.basePath = '/Tollan_Le_Funk/';
+                }
+            },
+            
+            /**
+             * Generar URL correcta según el entorno
+             */
+            url(path) {
+                // Remover slash inicial si existe
+                path = path.replace(/^\/+/, '');
+                return this.basePath + path;
+            },
+            
             inicializarFormulario() {
                 const form = document.getElementById('form-login');
                 
@@ -64,11 +92,26 @@ document.addEventListener('DOMContentLoaded', function() {
                         formData.append('redirect', this.redirect);
                     }
                     
-                    // Usar ruta relativa en lugar de absoluta
-                    const response = await fetch('src/procesar_login.php', {
+                    // Usar ruta dinámica según el entorno
+                    const url = this.url('src/procesar_login.php');
+                    console.log('Intentando conectar a:', url); // Para debug
+                    
+                    const response = await fetch(url, {
                         method: 'POST',
                         body: formData
                     });
+                    
+                    // Verificar si la respuesta es correcta
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const contentType = response.headers.get("content-type");
+                    if (!contentType || !contentType.includes("application/json")) {
+                        const text = await response.text();
+                        console.error('Respuesta no JSON:', text);
+                        throw new Error('La respuesta del servidor no es JSON válido');
+                    }
                     
                     const data = await response.json();
                     
@@ -83,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 } catch (error) {
                     console.error('Error en el login:', error);
-                    alert('Error al procesar el inicio de sesión. Inténtalo de nuevo.');
+                    alert('Error al procesar el inicio de sesión. Inténtalo de nuevo.\n\nDetalle técnico: ' + error.message);
                     btnLogin.disabled = false;
                     btnLogin.textContent = 'Iniciar Sesión';
                 } finally {
