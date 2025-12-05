@@ -2,6 +2,9 @@
 // Archivo para verificar autenticación y permisos
 // Incluir este archivo al inicio de cada página protegida
 
+// Configurar sesión usando archivo centralizado
+require_once __DIR__ . '/session_config.php';
+
 session_start();
 
 // Cargar la configuración para usar la función url()

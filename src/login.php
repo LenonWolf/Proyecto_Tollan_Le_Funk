@@ -1,4 +1,3 @@
-<?php require_once 'config.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +15,10 @@
 </head>
 
 <body>
-    <?php include 'includes/header.php'; ?>
+    <?php
+    include 'includes/header.php';
+    require_once 'config.php';
+    ?>
     
     <main>
         <h1>Login de Usuario</h1>

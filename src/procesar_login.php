@@ -2,6 +2,9 @@
 
 // Procesamiento de login con validación de credenciales
 
+// Configurar sesión usando archivo centralizado
+require_once 'session_config.php';
+
 session_start(); // Iniciar sesión
 
 require_once 'config.php'; // Cargar configuración de rutas
@@ -110,6 +113,12 @@ $_SESSION['Nombre'] = $row['Nombre'];
 $_SESSION['Correo'] = $row['Correo'];
 $_SESSION['Fecha_Alt'] = $row['Fecha_Alt'];
 $_SESSION['Tipo_Usr'] = $row['Tipo_Usr'];
+
+// IMPORTANTE: Regenerar ID de sesión por seguridad
+session_regenerate_id(true);
+
+// Log para debug (remover en producción)
+error_log("Login exitoso - Usuario: " . $row['Nombre'] . " - Session ID: " . session_id());
 
 // Determinar la página de redirección según si venía de alguna página específica
 $redirect = isset($_POST['redirect']) ? $_POST['redirect'] : null;

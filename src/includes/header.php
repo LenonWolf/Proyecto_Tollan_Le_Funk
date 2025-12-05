@@ -1,15 +1,20 @@
 <?php
-// Cargar configuración de rutas
-// Si config.php está en src/, ajustar la ruta según la ubicación del header
-if (file_exists(__DIR__ . '/../config.php')) {
-    require_once __DIR__ . '/../config.php';
-} elseif (file_exists(__DIR__ . '/../../src/config.php')) {
-    require_once __DIR__ . '/../../src/config.php';
+// Configurar sesión ANTES de iniciarla
+if (session_status() === PHP_SESSION_NONE) {
+    // Cargar configuración de sesiones
+    if (file_exists(__DIR__ . '/../session_config.php')) {
+        require_once __DIR__ . '/../session_config.php';
+    }
+    session_start();
 }
 
-// Iniciar sesión si no está iniciada
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Cargar configuración de rutas
+if (!defined('BASE_PATH')) {
+    if (file_exists(__DIR__ . '/../config.php')) {
+        require_once __DIR__ . '/../config.php';
+    } elseif (file_exists(__DIR__ . '/../../src/config.php')) {
+        require_once __DIR__ . '/../../src/config.php';
+    }
 }
 ?>
 <!-- Encabezado con el título del sitio y el menú de navegación -->

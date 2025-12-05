@@ -1,6 +1,8 @@
 <?php
 // Cerrar sesión del usuario
 
+// Configurar sesión
+require_once 'session_config.php';
 session_start(); // Iniciar la sesión para poder destruirla
 
 // Limpiar todas las variables de sesión
@@ -18,6 +20,9 @@ if (ini_get("session.use_cookies")) {
 // Finalmente, destruir la sesión
 session_destroy();
 
-// Redirigir al index
-header("Location: ../index.php");
+// Cargar configuración de rutas
+require_once 'config.php';
+
+// Redirigir al index usando la función url()
+header("Location: " . url('index.php'));
 exit;

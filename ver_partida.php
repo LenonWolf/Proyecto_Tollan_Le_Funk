@@ -1,3 +1,8 @@
+<?php
+// Configurar sesión ANTES de cualquier salida HTML
+require_once 'src/session_config.php';
+session_start();
+?>
 <!DOCTYPE html> <!-- HTML5 -->
 <html lang="es"> <!-- HTML en español -->
     <head> <!-- Metadatos y enlaces a recursos externos -->
