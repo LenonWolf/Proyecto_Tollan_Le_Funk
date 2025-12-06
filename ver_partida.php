@@ -1,7 +1,8 @@
 <?php
-// Configurar sesión ANTES de cualquier salida HTML
-require_once 'src/session_config.php';
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    @session_name('TOLLAN_SESSION');
+    session_start();
+}
 ?>
 <!DOCTYPE html> <!-- HTML5 -->
 <html lang="es"> <!-- HTML en español -->

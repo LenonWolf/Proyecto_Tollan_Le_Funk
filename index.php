@@ -1,9 +1,8 @@
 <?php
-// Configurar sesión ANTES de cualquier salida HTML
-require_once 'src/session_config.php';
-session_start();
-
-// Cargar configuración de rutas
+if (session_status() === PHP_SESSION_NONE) {
+    @session_name('TOLLAN_SESSION');
+    session_start();
+}
 require_once 'src/config.php';
 ?>
 <!DOCTYPE html> <!-- HTML5 -->

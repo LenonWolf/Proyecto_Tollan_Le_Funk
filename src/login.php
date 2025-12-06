@@ -1,3 +1,22 @@
+<?php 
+// Configurar sesión directamente antes de iniciarla
+if (session_status() === PHP_SESSION_NONE) {
+    // Configuración de sesión
+    @session_name('TOLLAN_SESSION');
+    @ini_set('session.cookie_httponly', '1');
+    @ini_set('session.use_only_cookies', '1');
+    @ini_set('session.cookie_samesite', 'Lax');
+    
+    // Activar cookies seguras en HTTPS
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        @ini_set('session.cookie_secure', '1');
+    }
+    
+    session_start();
+}
+
+require_once 'config.php'; 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,10 +34,7 @@
 </head>
 
 <body>
-    <?php
-    include 'includes/header.php';
-    require_once 'config.php';
-    ?>
+    <?php include 'includes/header.php'; ?>
     
     <main>
         <h1>Login de Usuario</h1>

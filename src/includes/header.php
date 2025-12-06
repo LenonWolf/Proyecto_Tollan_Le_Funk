@@ -1,14 +1,8 @@
 <?php
-// Configurar sesión ANTES de iniciarla
 if (session_status() === PHP_SESSION_NONE) {
-    // Cargar configuración de sesiones
-    if (file_exists(__DIR__ . '/../session_config.php')) {
-        require_once __DIR__ . '/../session_config.php';
-    }
+    @session_name('TOLLAN_SESSION');
     session_start();
 }
-
-// Cargar configuración de rutas
 if (!defined('BASE_PATH')) {
     if (file_exists(__DIR__ . '/../config.php')) {
         require_once __DIR__ . '/../config.php';
