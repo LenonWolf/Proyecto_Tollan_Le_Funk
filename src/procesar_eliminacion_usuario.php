@@ -1,19 +1,15 @@
 <?php
-// Procesamiento de eliminación de cuenta de usuario
-
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    @session_name('TOLLAN_SESSION');
+    session_start();
+}
 
 require_once 'conexion.php';
 
-// Crear conexión con usuario de solo lectura
 $db = new Conexion('usr_del_usuario', 'del_usuario123');
 $conn = $db->conectar();
 
 header('Content-Type: application/json; charset=utf-8');
-
-/***************************
-* VERIFICAR AUTENTICACIÓN *
-***************************/
 
 if (!isset($_SESSION['ID_Usuarios'])) {
     echo json_encode([
@@ -23,7 +19,6 @@ if (!isset($_SESSION['ID_Usuarios'])) {
     exit;
 }
 
-// SEGURIDAD: Solo usuarios normales pueden eliminar su propia cuenta
 if ($_SESSION['Tipo_Usr'] !== 'Usr') {
     echo json_encode([
         'success' => false,
@@ -31,10 +26,6 @@ if ($_SESSION['Tipo_Usr'] !== 'Usr') {
     ]);
     exit;
 }
-
-/***************************
-* VERIFICAR MÉTODO POST *
-***************************/
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode([
@@ -44,15 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-/***************************
-* RECIBIR Y VALIDAR DATOS *
-***************************/
-
 $confirmar_delete = isset($_POST['confirmar_delete']) ? trim($_POST['confirmar_delete']) : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 $id_usuario = $_SESSION['ID_Usuarios'];
 
-// Validar campos vacíos
 if (empty($confirmar_delete) || empty($password)) {
     echo json_encode([
         'success' => false,
@@ -61,7 +47,6 @@ if (empty($confirmar_delete) || empty($password)) {
     exit;
 }
 
-// Validar palabra de confirmación
 if (strtoupper($confirmar_delete) !== 'ELIMINAR') {
     echo json_encode([
         'success' => false,
@@ -69,10 +54,6 @@ if (strtoupper($confirmar_delete) !== 'ELIMINAR') {
     ]);
     exit;
 }
-
-/*********************************
-* VERIFICAR CONTRASEÑA *
-*********************************/
 
 $sql_check = "SELECT Contraseña FROM usuarios WHERE ID_Usuarios = ? LIMIT 1";
 $stmt_check = $conn->prepare($sql_check);
@@ -95,27 +76,21 @@ if ($result->num_rows === 0) {
         'message' => 'Usuario no encontrado'
     ]);
     $stmt_check->close();
+    $db->cerrar();
     exit;
 }
 
 $row = $result->fetch_assoc();
 $stmt_check->close();
 
-// Verificar que la contraseña sea correcta
 if (!password_verify($password, $row['Contraseña'])) {
     echo json_encode([
         'success' => false,
         'message' => 'La contraseña es incorrecta'
     ]);
+    $db->cerrar();
     exit;
 }
-
-/**********************
-* ELIMINAR USUARIO *
-**********************/
-
-// Nota: Si tienes tablas relacionadas (partidas creadas, etc.), 
-// deberías manejar esas relaciones aquí (CASCADE o eliminación manual)
 
 $sql_delete = "DELETE FROM usuarios WHERE ID_Usuarios = ?";
 $stmt_delete = $conn->prepare($sql_delete);
@@ -131,7 +106,6 @@ if (!$stmt_delete) {
 $stmt_delete->bind_param("i", $id_usuario);
 
 if ($stmt_delete->execute()) {
-    // Destruir la sesión
     $_SESSION = array();
     
     if (ini_get("session.use_cookies")) {
@@ -156,4 +130,4 @@ if ($stmt_delete->execute()) {
 }
 
 $stmt_delete->close();
-$conn->close();
+$db->cerrar();

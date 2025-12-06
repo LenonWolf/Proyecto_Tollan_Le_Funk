@@ -1,7 +1,8 @@
 <?php
-// Procesamiento de cambio de contraseña
-
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    @session_name('TOLLAN_SESSION');
+    session_start();
+}
 
 require_once 'conexion.php';
 
@@ -9,10 +10,6 @@ $db = new Conexion('usr_upd_usuarios', 'upd_usuarios123');
 $conn = $db->conectar();
 
 header('Content-Type: application/json; charset=utf-8');
-
-/***************************
-* VERIFICAR AUTENTICACIÓN *
-***************************/
 
 if (!isset($_SESSION['ID_Usuarios'])) {
     echo json_encode([
@@ -22,10 +19,6 @@ if (!isset($_SESSION['ID_Usuarios'])) {
     exit;
 }
 
-/***************************
-* VERIFICAR MÉTODO POST *
-***************************/
-
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode([
         'success' => false,
@@ -34,15 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-/***************************
-* RECIBIR Y VALIDAR DATOS *
-***************************/
-
 $password_actual = isset($_POST['password_actual']) ? $_POST['password_actual'] : '';
 $nueva_password = isset($_POST['nueva_password']) ? $_POST['nueva_password'] : '';
 $id_usuario = $_SESSION['ID_Usuarios'];
 
-// Validar campos vacíos
 if (empty($password_actual) || empty($nueva_password)) {
     echo json_encode([
         'success' => false,
@@ -51,7 +39,6 @@ if (empty($password_actual) || empty($nueva_password)) {
     exit;
 }
 
-// Validar longitud de la nueva contraseña
 if (strlen($nueva_password) < 6) {
     echo json_encode([
         'success' => false,
@@ -59,10 +46,6 @@ if (strlen($nueva_password) < 6) {
     ]);
     exit;
 }
-
-/*********************************
-* VERIFICAR CONTRASEÑA ACTUAL *
-*********************************/
 
 $sql_check = "SELECT Contraseña FROM usuarios WHERE ID_Usuarios = ? LIMIT 1";
 $stmt_check = $conn->prepare($sql_check);
@@ -85,33 +68,30 @@ if ($result->num_rows === 0) {
         'message' => 'Usuario no encontrado'
     ]);
     $stmt_check->close();
+    $db->cerrar();
     exit;
 }
 
 $row = $result->fetch_assoc();
 $stmt_check->close();
 
-// Verificar que la contraseña actual sea correcta
 if (!password_verify($password_actual, $row['Contraseña'])) {
     echo json_encode([
         'success' => false,
         'message' => 'La contraseña actual es incorrecta'
     ]);
+    $db->cerrar();
     exit;
 }
 
-// Verificar que la nueva contraseña sea diferente
 if ($password_actual === $nueva_password) {
     echo json_encode([
         'success' => false,
         'message' => 'La nueva contraseña debe ser diferente a la actual'
     ]);
+    $db->cerrar();
     exit;
 }
-
-/**********************
-* ACTUALIZAR CONTRASEÑA *
-**********************/
 
 $password_hash = password_hash($nueva_password, PASSWORD_DEFAULT);
 
@@ -141,4 +121,4 @@ if ($stmt_update->execute()) {
 }
 
 $stmt_update->close();
-$conn->close();
+$db->cerrar();

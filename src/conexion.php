@@ -40,11 +40,11 @@ class Conexion {
 
         // Ruta al certificado CA
         // Ruta absoluta en App Service
-        $certPath = "/home/site/wwwroot/certs/DigiCertGlobalRootCA.crt.pem";
+        $certPath = "/home/site/wwwroot/certs/DigiCertGlobalRootG2.crt.pem";
 
         // Fallback relativo (por si corres en local)
         if (!file_exists($certPath)) {
-            $certPath = __DIR__ . "/certs/DigiCertGlobalRootCA.crt.pem";
+            $certPath = __DIR__ . "/certs/DigiCertGlobalRootG2.crt.pem";
         }
         
         // Verificar que el certificado existe
