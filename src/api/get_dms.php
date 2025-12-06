@@ -1,9 +1,6 @@
 <?php
-// API para obtener la lista de todos los Dungeon Masters disponibles
+require_once '../conexion.php';
 
-require_once '../Conexion.php';
-
-// Crear conexión con usuario de solo lectura
 $db = new Conexion('usr_lector', 'lector123');
 $conn = $db->conectar();
 
@@ -17,6 +14,7 @@ if (!$result) {
         'success' => false,
         'message' => 'Error al consultar DMs'
     ]);
+    $db->cerrar();
     exit;
 }
 
@@ -33,3 +31,5 @@ echo json_encode([
     'success' => true,
     'dms' => $dms
 ]);
+
+$db->cerrar();
