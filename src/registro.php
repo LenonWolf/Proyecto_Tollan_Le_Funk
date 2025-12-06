@@ -1,3 +1,11 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    @session_name('TOLLAN_SESSION');
+    session_start();
+}
+
+require_once 'config.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,18 +19,16 @@
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_btn.css">
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/includes.css">
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_registro.css">
-    <link rel="icon" type="image/x-icon" href="../assets/img/dragon.ico">
+    <link rel="icon" type="image/x-icon" href="<?php echo url('assets/img/dragon.ico'); ?>">
     <title>Tollan le Funk - Registro</title>
 </head>
 
 <body>
-    <?php
-    include 'includes/header.php';
-    ?>
+    <?php include 'includes/header.php'; ?>
     
     <main>
         <h1>Registro de Usuario</h1>
-        <form id="form-registro" action="procesar_registro.php" method="POST">
+        <form id="form-registro" action="<?php echo url('src/procesar_registro.php'); ?>" method="POST">
 
             <div class="div-form">
                 <h2>Información del Usuario</h2>
@@ -47,15 +53,16 @@
             </div>
 
             <button id="btn-registrar" class="btn" type="submit">Registrar</button>
+            
+            <p style="text-align: center; margin-top: 15px;">
+                ¿Ya tienes cuenta? <a href="<?php echo url('src/login.php'); ?>" style="color: #4CAF50;">Inicia sesión aquí</a>
+            </p>
         </form>
     </main>
 
     <?php include 'includes/footer.php'; ?>
     
-    <!-- Vue.js 3 CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js"></script>
-    
-    <!-- Script de registro con validaciones -->
-    <script src="/Tollan_Le_Funk/assets/js/registro.js"></script>
+    <script src="<?php echo url('assets/js/registro.js'); ?>"></script>
 </body>
 </html>

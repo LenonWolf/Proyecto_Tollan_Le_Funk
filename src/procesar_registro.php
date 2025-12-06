@@ -1,18 +1,12 @@
 <?php
-// Procesamiento de registro con respuesta JSON para AJAX
-
 require_once 'conexion.php';
 
 $db = new Conexion('usr_upd_usuarios', 'upd_usuarios123');
 $conn = $db->conectar();
 
-header('Content-Type: application/json; charset=utf-8'); // Respuesta JSON
+header('Content-Type: application/json; charset=utf-8');
 
 date_default_timezone_set('America/Mexico_City');
-
-/***************************
-* VERIFICAR MÉTODO POST *
-***************************/
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode([
@@ -22,15 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-/***************************
-* RECIBIR Y VALIDAR DATOS *
-***************************/
-
 $nombre = isset($_POST['username']) ? trim($_POST['username']) : '';
 $correo = isset($_POST['email']) ? trim($_POST['email']) : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-// Validar campos vacíos
 if (empty($nombre) || empty($correo) || empty($password)) {
     echo json_encode([
         'success' => false,
@@ -39,7 +28,6 @@ if (empty($nombre) || empty($correo) || empty($password)) {
     exit;
 }
 
-// Validar formato del correo
 if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
     echo json_encode([
         'success' => false,
@@ -48,7 +36,6 @@ if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-// Validar longitud de la contraseña (mínimo 6 caracteres)
 if (strlen($password) < 6) {
     echo json_encode([
         'success' => false,
@@ -56,10 +43,6 @@ if (strlen($password) < 6) {
     ]);
     exit;
 }
-
-/*********************************
-* VERIFICAR SI EL CORREO YA EXISTE *
-*********************************/
 
 $sql_check = "SELECT ID_Usuarios FROM usuarios WHERE Correo = ? LIMIT 1";
 $stmt_check = $conn->prepare($sql_check);
@@ -82,15 +65,11 @@ if ($stmt_check->num_rows > 0) {
         'message' => 'Este correo ya está registrado'
     ]);
     $stmt_check->close();
+    $db->cerrar();
     exit;
 }
 $stmt_check->close();
 
-/**********************
-* INSERTAR NUEVO USUARIO *
-**********************/
-
-// Encriptar la contraseña
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
 $sql_insert = "INSERT INTO usuarios (Nombre, Correo, Contraseña, Fecha_Alt, Tipo_Usr)
@@ -122,4 +101,4 @@ if ($stmt_insert->execute()) {
 }
 
 $stmt_insert->close();
-$conn->close();
+$db->cerrar();
