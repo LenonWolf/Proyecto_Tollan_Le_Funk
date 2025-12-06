@@ -4,29 +4,29 @@ document.addEventListener('DOMContentLoaded', function() {
     createApp({
         data() {
             return {
-                sistemas: [],           // Lista de sistemas desde la API
-                dms: [],                // Lista de DMs desde la API
-                sistemaSeleccionado: '', // ID del sistema seleccionado
-                dmSeleccionado: '',      // ID del DM seleccionado
-                infoSistema: {          // Información del sistema actual
+                sistemas: [],
+                dms: [],
+                sistemaSeleccionado: '',
+                dmSeleccionado: '',
+                infoSistema: {
                     descripcion: '',
                     clasificacion: '',
                     tipo: '',
                     genero: [],
                     dado: []
                 },
-                mostrarNuevoDM: false,  // Flag para mostrar/ocultar formulario nuevo DM
+                mostrarNuevoDM: false,
                 cargandoSistemas: false,
                 cargandoDMs: false,
-                cargandoInfo: false
+                cargandoInfo: false,
+                basePath: ''
             }
         },
         mounted() {
-            // Al montar, cargar los datos iniciales
+            this.detectarBasePath();
             this.cargarSistemas();
             this.cargarDMs();
             
-            // Obtener valores iniciales si existen (modo edición)
             const sistemaInicial = document.getElementById('data-sistema-inicial')?.value;
             const dmInicial = document.getElementById('data-dm-inicial')?.value;
             
@@ -37,11 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.dmSeleccionado = dmInicial;
             }
 
-            // Inicializar los selects nativos
             this.inicializarSelects();
         },
         watch: {
-            // Observar cambios en el sistema seleccionado
             sistemaSeleccionado(nuevoId) {
                 if (nuevoId) {
                     this.cargarInfoSistema(nuevoId);
@@ -49,26 +47,31 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.limpiarInfoSistema();
                 }
             },
-            // Observar cambios en el DM seleccionado
             dmSeleccionado(nuevoId) {
                 this.mostrarNuevoDM = (nuevoId === 'new' || nuevoId === '');
                 this.actualizarRequeridosNuevoDM();
             }
         },
         methods: {
-            /***************************
-            * CARGA DE DATOS INICIALES *
-            ***************************/
+            detectarBasePath() {
+                const hostname = window.location.hostname;
+                this.basePath = hostname.includes('azurewebsites.net') ? '/' : '/Tollan_Le_Funk/';
+            },
+            
+            url(path) {
+                path = path.replace(/^\/+/, '');
+                return this.basePath + path;
+            },
 
             async cargarSistemas() {
                 this.cargandoSistemas = true;
                 try {
-                    const response = await fetch('/Tollan_Le_Funk/src/api/get_sistemas.php');
+                    const url = this.url('src/api/get_sistemas.php');
+                    const response = await fetch(url);
                     const data = await response.json();
                     
                     if (data.success) {
                         this.sistemas = data.sistemas;
-                        // Actualizar el select nativo
                         this.actualizarSelectSistemas();
                     }
                 } catch (error) {
@@ -81,12 +84,12 @@ document.addEventListener('DOMContentLoaded', function() {
             async cargarDMs() {
                 this.cargandoDMs = true;
                 try {
-                    const response = await fetch('/Tollan_Le_Funk/src/api/get_dms.php');
+                    const url = this.url('src/api/get_dms.php');
+                    const response = await fetch(url);
                     const data = await response.json();
                     
                     if (data.success) {
                         this.dms = data.dms;
-                        // Actualizar el select nativo
                         this.actualizarSelectDMs();
                     }
                 } catch (error) {
@@ -99,7 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
             async cargarInfoSistema(id) {
                 this.cargandoInfo = true;
                 try {
-                    const response = await fetch(`/Tollan_Le_Funk/src/get_sistema.php?id=${encodeURIComponent(id)}`);
+                    const url = this.url(`src/get_sistema.php?id=${encodeURIComponent(id)}`);
+                    const response = await fetch(url);
                     const data = await response.json();
                     
                     if (data.success) {
@@ -122,15 +126,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
 
-            /********************************
-            * ACTUALIZACIÓN DEL DOM NATIVO *
-            ********************************/
-
             inicializarSelects() {
                 const selectSistema = document.getElementById('select-sistema');
                 const selectDM = document.getElementById('select-dm');
                 
-                // Listeners para sincronizar con Vue
                 selectSistema.addEventListener('change', (e) => {
                     this.sistemaSeleccionado = e.target.value;
                 });
@@ -143,12 +142,10 @@ document.addEventListener('DOMContentLoaded', function() {
             actualizarSelectSistemas() {
                 const select = document.getElementById('select-sistema');
                 
-                // Limpiar opciones existentes excepto la primera
                 while (select.options.length > 1) {
                     select.remove(1);
                 }
                 
-                // Agregar nuevas opciones
                 this.sistemas.forEach(sistema => {
                     const option = document.createElement('option');
                     option.value = sistema.id;
@@ -159,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     select.appendChild(option);
                 });
                 
-                // Si había un sistema preseleccionado, cargar su info
                 if (this.sistemaSeleccionado) {
                     this.cargarInfoSistema(this.sistemaSeleccionado);
                 }
@@ -168,12 +164,10 @@ document.addEventListener('DOMContentLoaded', function() {
             actualizarSelectDMs() {
                 const select = document.getElementById('select-dm');
                 
-                // Limpiar opciones existentes excepto la primera
                 while (select.options.length > 1) {
                     select.remove(1);
                 }
                 
-                // Agregar opciones de DMs existentes
                 this.dms.forEach(dm => {
                     const option = document.createElement('option');
                     option.value = dm.id;
@@ -184,13 +178,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     select.appendChild(option);
                 });
                 
-                // Agregar opción "Nuevo DM"
                 const optionNuevo = document.createElement('option');
                 optionNuevo.value = 'new';
                 optionNuevo.textContent = 'Agregar nuevo DM +';
                 select.appendChild(optionNuevo);
                 
-                // Actualizar visibilidad del formulario nuevo DM
                 if (this.dmSeleccionado) {
                     this.mostrarNuevoDM = (this.dmSeleccionado === 'new');
                     this.actualizarRequeridosNuevoDM();
@@ -229,10 +221,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.setValor('s_dado', '--------------------');
             },
 
-            /********************************
-            * GESTIÓN DEL FORMULARIO NUEVO DM *
-            ********************************/
-
             actualizarRequeridosNuevoDM() {
                 const divNuevoDM = document.getElementById('div-nuevoDm');
                 const inputNombre = document.getElementById('lbl-nombre');
@@ -248,10 +236,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     inputFecha.required = false;
                 }
             },
-
-            /**********************
-            * FUNCIONES AUXILIARES *
-            **********************/
 
             setValor(elementId, valor) {
                 const el = document.getElementById(elementId);

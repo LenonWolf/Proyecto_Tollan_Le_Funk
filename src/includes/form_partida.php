@@ -1,5 +1,4 @@
 <?php
-// Inicializar variables con valores de la partida si existen
 $titulo = $partida['Titulo'] ?? '';
 $fecha_inic = $partida['Fecha_Inic'] ?? '';
 $horario = $partida['Horario'] ?? '';
@@ -14,20 +13,16 @@ $id_dm = $partida['ID_DM'] ?? '';
         <input type="hidden" name="ID_Partida" value="<?php echo $partida['ID_Partida']; ?>">
     <?php endif; ?>
 
-    <!-- Atributos data-* para Vue (W3C válido) -->
     <input type="hidden" id="data-sistema-inicial" value="<?php echo $id_sistema; ?>">
     <input type="hidden" id="data-dm-inicial" value="<?php echo $id_dm; ?>">
 
-    <!-- SISTEMA -->
     <h2>Datos del Sistema</h2>
     
     <label for="select-sistema"><strong>Sistema:</strong></label>
     <select id="select-sistema" name="ID_Sistema" required>
         <option value="">--- Selecciona un sistema ---</option>
-        <!-- Vue llenará estas opciones dinámicamente -->
     </select>
 
-    <!-- Información dinámica del sistema (Vue la actualiza) -->
     <div id="div-infoSistema">
         <p><strong>Descripción:</strong> <span id="s_descripcion" class="vacio">--------------------</span></p>
         <p><strong>Clasificación:</strong> <span id="s_clasificacion" class="vacio">--------------------</span></p>
@@ -36,16 +31,13 @@ $id_dm = $partida['ID_DM'] ?? '';
         <p><strong>Dados:</strong> <span id="s_dado" class="vacio">--------------------</span></p>
     </div>
 
-    <!-- DUNGEON MASTER -->
     <h2>Dungeon Master</h2>
 
     <label for="select-dm"><strong>DM:</strong></label>
     <select id="select-dm" name="ID_DM" required>
         <option value="">--- Selecciona un DM ---</option>
-        <!-- Vue llenará estas opciones dinámicamente -->
     </select>
 
-    <!-- Formulario adicional para nuevo DM (oculto por defecto) -->
     <div id="div-nuevoDm" class="div-form" style="display:none;">
         <h3>Nuevo DM</h3>
         
@@ -58,7 +50,6 @@ $id_dm = $partida['ID_DM'] ?? '';
         <p class="notas"><strong>Nota:</strong> Si el DM ya existe, no se creará otro.</p>
     </div>
     
-    <!-- DATOS DE LA PARTIDA -->
     <h2>Datos de la partida</h2>
     
     <div class="div-form">
@@ -92,8 +83,5 @@ $id_dm = $partida['ID_DM'] ?? '';
     </div>
 </form>
 
-<!-- Vue.js 3 CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js"></script>
-
-<!-- Script Vue externo para el formulario -->
-<script src="/Tollan_Le_Funk/assets/js/form_partida_vue.js"></script>
+<script src="<?php echo url('assets/js/form_partida_vue.js'); ?>"></script>
