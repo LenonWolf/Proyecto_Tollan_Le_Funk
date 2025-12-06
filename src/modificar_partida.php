@@ -1,8 +1,8 @@
 <?php
-include 'src/check_auth.php';
+include 'check_auth.php';
 verificarPermisos(['Adm', 'Mod']);
 
-require_once 'src/conexion.php';
+require_once 'conexion.php';
 
 $db = new Conexion('usr_lector', 'lector123');
 $conn = $db->conectar();
@@ -25,7 +25,7 @@ $conn = $db->conectar();
 
 <body> <!-- Cuerpo del documento -->
     <?php
-    
+
     // Obtener el ID de la partida desde la URL (GET).
     // Si no existe, se detiene la ejecución con un mensaje de error.
     $id = $_GET['id'] ?? null;
