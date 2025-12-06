@@ -1,3 +1,12 @@
+<?php
+include 'src/check_auth.php';
+verificarPermisos(['Adm', 'Mod']);
+
+require_once 'src/conexion.php';
+
+$db = new Conexion('usr_lector', 'lector123');
+$conn = $db->conectar();
+?>
 <!DOCTYPE html> <!-- Declaración de tipo de documento: HTML5 -->
 <html lang="es"> <!-- Documento en idioma español -->
 <head> <!-- Cabecera: metadatos y enlaces a recursos externos -->
@@ -16,17 +25,7 @@
 
 <body> <!-- Cuerpo del documento -->
     <?php
-    // PROTECCIÓN: Verificar autenticación y permisos
-    include 'check_auth.php';
-    verificarPermisos(['Adm', 'Mod']); // Solo administradores y moderadores
     
-    require_once 'conexion.php';
-
-    // Crear conexión con usuario de solo lectura
-    $db = new Conexion('usr_lector', 'lector123');
-    $conn = $db->conectar();
-
-
     // Obtener el ID de la partida desde la URL (GET).
     // Si no existe, se detiene la ejecución con un mensaje de error.
     $id = $_GET['id'] ?? null;
