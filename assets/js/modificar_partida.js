@@ -28,7 +28,7 @@ if (!formBorrar) {
             const currentPagePath = window.location.pathname;
             const directory = currentPagePath.substring(0, currentPagePath.lastIndexOf('/') + 1);
             
-            const deleteUrl = directory + 'test_delete.php';  // <-- cambio temporal
+            const deleteUrl = directory + 'delete_partida.php';  // <-- cambio temporal
             
             console.log('📍 Página actual:', currentPagePath);
             console.log('📁 Directorio:', directory);
