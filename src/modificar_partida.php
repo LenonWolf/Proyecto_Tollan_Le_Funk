@@ -19,7 +19,7 @@ $conn = $db->conectar();
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_form.css"> <!-- Estilos específicos para formularios -->
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/style_btn.css"> <!-- Estilos de botones -->
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/includes.css"> <!-- Estilos para elementos incluidos -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/dragon.ico"> <!-- Icono de la pestaña del navegador -->
+    <link rel="icon" type="image/x-icon" href="<?php echo url('assets/img/dragon.ico'); ?>"> <!-- Icono de la pestaña del navegador -->
     <title>Tollan le Funk - Modificación</title> <!-- Título de la página -->
 </head>
 
@@ -79,8 +79,8 @@ $conn = $db->conectar();
             <button id="btn-borrar-2" class="btn-2" form="form-borrar" type="submit"><i class="fas fa-trash"></i></button>
         </div>
 
-        <!-- Script JS asociado para manejar interacciones dinámicas -->
-        <script src="../assets/js/modificar_partida.js"></script>
+        <!-- Script JS asociado para manejar interacciones dinámicas - RUTA CORREGIDA -->
+        <script src="<?php echo url('assets/js/modificar_partida.js'); ?>"></script>
     </main>
 
     <?php include 'includes/footer.php'; ?> <!-- Incluir el pie de página común -->
