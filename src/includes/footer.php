@@ -6,10 +6,10 @@
     <p>&copy;<?php echo date("Y"); ?> <b>Tollan le Funk</b> - Todos los Derechos Reservados.</p> <!-- Derechos de autor -->
     <div id="validator"> <!-- Validaciones de HTML y CSS -->
         <p>
-            <a href="https://jigsaw.w3.org/css-validator/check/referer">
+            <a href="https://validator.w3.org/check?uri=referer">
                 <img style="border:0;width:88px;height:31px"
-                    src="https://jigsaw.w3.org/css-validator/images/vcss"
-                    alt="¡CSS Válido!">
+                    src="mi-html-valido.png"
+                    alt="¡HTML Válido!" />
             </a>
         </p>
         <p>
