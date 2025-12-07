@@ -23,20 +23,16 @@ document.getElementById('form-borrar').addEventListener('submit', async function
 
     try {
         // 5) Realizar la petición HTTP al endpoint de borrado:
-        //    - URL corregida para Azure: desde /src/modificar_partida.php llamamos a delete_partida.php
-        //    - Si estamos en local (XAMPP), la ruta también funciona correctamente
-        //    - Método POST: envía el 'id' de la partida para eliminarla.
-        //    - 'body: formData' adjunta los datos del formulario.
-        
-        // Detectar la ruta base correcta
-        const basePath = window.location.pathname.includes('/src/') 
-            ? window.location.pathname.substring(0, window.location.pathname.indexOf('/src/') + 5)
-            : '/src/';
-        
-        const resp = await fetch(basePath + 'delete_partida.php', {
+        //    - Como modificar_partida.php está en /src/, delete_partida.php está en la misma carpeta
+        //    - Usamos una ruta relativa simple desde el contexto del PHP
+        const resp = await fetch('delete_partida.php', {
             method: 'POST',
             body: formData
         });
+
+        // Log para depuración
+        console.log('Response status:', resp.status);
+        console.log('Response OK:', resp.ok);
 
         // 6) Evaluar la respuesta del servidor:
         //    - resp.ok es true para códigos 2xx (ej. 200 OK).
@@ -50,14 +46,16 @@ document.getElementById('form-borrar').addEventListener('submit', async function
             // 6.2) Cerrar la ventana emergente actual (modificar_partida.php):
             window.close();
         } else {
-            // 6.3) Si el servidor responde con error (400/500), informar al usuario:
-            alert("Error al eliminar la partida.");
+            // 6.3) Si el servidor responde con error (400/500), leer el cuerpo de la respuesta
+            const errorText = await resp.text();
+            console.error('Error del servidor:', errorText);
+            alert("Error al eliminar la partida. Código: " + resp.status + "\nDetalles en consola (F12)");
         }
     } catch (err) {
         // 7) Manejo de errores de red:
         //    - Si la petición falla por conectividad, CORS, tiempo de espera, etc.
         //    - Se registra en consola para depuración y se muestra un mensaje al usuario.
-        console.error(err);
-        alert("Error de red al eliminar la partida.");
+        console.error('Error de red:', err);
+        alert("Error de red al eliminar la partida: " + err.message);
     }
 });
