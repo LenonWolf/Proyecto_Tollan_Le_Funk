@@ -80,7 +80,7 @@ $conn = $db->conectar();
         </div>
 
         <!-- Script JS asociado para manejar interacciones dinámicas - RUTA CORREGIDA -->
-        <script src="<?php echo url('assets/js/modificar_partida.js'); ?>"></script>
+        <script src="<?php echo url('assets/js/modificar_partida.js'); ?>?v=<?php echo time(); ?>"></script>
     </main>
 
     <?php include 'includes/footer.php'; ?> <!-- Incluir el pie de página común -->
