@@ -23,31 +23,14 @@ document.getElementById('form-borrar').addEventListener('submit', async function
 
     try {
         // 5) Realizar la petición HTTP al endpoint de borrado:
-        //    - Construir ruta absoluta desde la raíz del sitio
-        //    - Obtener el path base desde la URL actual
-        const currentPath = window.location.pathname;
-        let basePath = '/';
+        //    - Usar la URL inyectada desde PHP (window.DELETE_PARTIDA_URL)
+        //    - Esta variable se define en modificar_partida.php usando config.php
+        //    - Garantiza compatibilidad entre Azure y XAMPP local
+        const deleteUrl = window.DELETE_PARTIDA_URL || 'src/delete_partida.php';
         
-        // Si estamos en Azure (azurewebsites.net), la ruta es directa desde raíz
-        if (window.location.hostname.includes('azurewebsites.net')) {
-            basePath = '/src/delete_partida.php';
-        } 
-        // Si estamos en local con XAMPP, necesitamos incluir /Tollan_Le_Funk/
-        else if (currentPath.includes('/Tollan_Le_Funk/')) {
-            basePath = '/Tollan_Le_Funk/src/delete_partida.php';
-        }
-        // Fallback: intentar detectar desde la URL actual
-        else if (currentPath.includes('/src/')) {
-            basePath = currentPath.substring(0, currentPath.indexOf('/src/')) + '/src/delete_partida.php';
-        }
-        // Último recurso: asumir ruta directa
-        else {
-            basePath = '/src/delete_partida.php';
-        }
+        console.log('Intentando borrar con URL:', deleteUrl);
         
-        console.log('Intentando borrar con URL:', basePath);
-        
-        const resp = await fetch(basePath, {
+        const resp = await fetch(deleteUrl, {
             method: 'POST',
             body: formData
         });
