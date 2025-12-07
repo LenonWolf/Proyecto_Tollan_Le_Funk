@@ -23,10 +23,17 @@ document.getElementById('form-borrar').addEventListener('submit', async function
 
     try {
         // 5) Realizar la petición HTTP al endpoint de borrado:
-        //    - URL relativa: 'delete_partida.php' (en la misma carpeta que modificar_partida.php).
+        //    - URL corregida para Azure: desde /src/modificar_partida.php llamamos a delete_partida.php
+        //    - Si estamos en local (XAMPP), la ruta también funciona correctamente
         //    - Método POST: envía el 'id' de la partida para eliminarla.
         //    - 'body: formData' adjunta los datos del formulario.
-        const resp = await fetch('delete_partida.php', {
+        
+        // Detectar la ruta base correcta
+        const basePath = window.location.pathname.includes('/src/') 
+            ? window.location.pathname.substring(0, window.location.pathname.indexOf('/src/') + 5)
+            : '/src/';
+        
+        const resp = await fetch(basePath + 'delete_partida.php', {
             method: 'POST',
             body: formData
         });
