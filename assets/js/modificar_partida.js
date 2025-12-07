@@ -27,8 +27,8 @@ if (!formBorrar) {
             // Obtener la ruta del directorio actual de la página
             const currentPagePath = window.location.pathname;
             const directory = currentPagePath.substring(0, currentPagePath.lastIndexOf('/') + 1);
+            const deleteUrl = directory + 'delete_partida.php';
             
-            const deleteUrl = directory + 'test_delete.php';  // <-- cambio temporal
             
             console.log('📍 Página actual:', currentPagePath);
             console.log('📁 Directorio:', directory);
