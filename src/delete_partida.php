@@ -3,9 +3,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Incluir configuración de rutas (para compatibilidad Azure/local)
-require_once 'config.php';
-
 // Verificar autenticación y permisos
 require_once 'check_auth.php';
 verificarPermisos(['Adm', 'Mod']);
