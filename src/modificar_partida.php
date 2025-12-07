@@ -21,12 +21,6 @@ $conn = $db->conectar();
     <link rel="stylesheet" href="https://lenonwolf.github.io/Assets_Tollan_Le_Funk/css/includes.css"> <!-- Estilos para elementos incluidos -->
     <link rel="icon" type="image/x-icon" href="../assets/img/dragon.ico"> <!-- Icono de la pestaña del navegador -->
     <title>Tollan le Funk - Modificación</title> <!-- Título de la página -->
-    
-    <!-- Inyectar la ruta base desde PHP para que JavaScript la use -->
-    <script>
-        // Variable global con la ruta correcta generada por config.php
-        window.DELETE_PARTIDA_URL = '<?php echo url('src/delete_partida.php'); ?>';
-    </script>
 </head>
 
 <body> <!-- Cuerpo del documento -->

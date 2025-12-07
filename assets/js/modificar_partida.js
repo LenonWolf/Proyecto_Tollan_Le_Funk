@@ -23,12 +23,18 @@ document.getElementById('form-borrar').addEventListener('submit', async function
 
     try {
         // 5) Realizar la petición HTTP al endpoint de borrado:
-        //    - Usar la URL inyectada desde PHP (window.DELETE_PARTIDA_URL)
-        //    - Esta variable se define en modificar_partida.php usando config.php
-        //    - Garantiza compatibilidad entre Azure y XAMPP local
-        const deleteUrl = window.DELETE_PARTIDA_URL || 'src/delete_partida.php';
+        //    - La página actual es /src/modificar_partida.php
+        //    - delete_partida.php está en la misma carpeta /src/
+        //    - Usamos la ubicación actual del documento para construir la ruta
         
-        console.log('Intentando borrar con URL:', deleteUrl);
+        // Obtener la ruta del directorio actual de la página (no del JS)
+        const currentPagePath = window.location.pathname; // Ej: /src/modificar_partida.php o /Tollan_Le_Funk/src/modificar_partida.php
+        const directory = currentPagePath.substring(0, currentPagePath.lastIndexOf('/') + 1); // Ej: /src/ o /Tollan_Le_Funk/src/
+        const deleteUrl = directory + 'delete_partida.php';
+        
+        console.log('Página actual:', currentPagePath);
+        console.log('Directorio:', directory);
+        console.log('URL de borrado:', deleteUrl);
         
         const resp = await fetch(deleteUrl, {
             method: 'POST',
