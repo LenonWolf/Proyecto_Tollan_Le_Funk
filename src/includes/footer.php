@@ -19,11 +19,10 @@
     <p>&copy;<?php echo date("Y"); ?> <b>Tollan le Funk</b> - Todos los Derechos Reservados.</p> <!-- Derechos de autor -->
 
     <?php
-    // Construir la URL actual completa
     $currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
     $currentUrl .= "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     ?>
-    <div id="validator"> <!-- Validaciones de HTML y CSS -->
+    <div id="validator">
         <p>
             <a href="https://validator.w3.org/check?uri=<?php echo urlencode($currentUrl); ?>" target="_blank" rel="noopener">
                 <img style="border:0;width:88px;height:31px"
@@ -32,7 +31,7 @@
             </a>
         </p>
         <p>
-            <a href="https://jigsaw.w3.org/css-validator/check?uri=<?php echo urlencode($currentUrl); ?>" target="_blank" rel="noopener">
+            <a href="https://jigsaw.w3.org/css-validator/validator?uri=<?php echo urlencode($currentUrl); ?>&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=es" target="_blank" rel="noopener">
                 <img style="border:0;width:88px;height:31px"
                     src="https://jigsaw.w3.org/css-validator/images/vcss-blue"
                     alt="¡CSS Válido!">
