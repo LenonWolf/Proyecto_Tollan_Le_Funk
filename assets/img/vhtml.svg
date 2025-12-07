@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31" role="img" aria-label="W3C HTML Valid">
+  <title>W3C HTML Valid</title>
+  <!-- Left panel -->
+  <rect x="0" y="0" width="44" height="31" fill="#ffffff"/>
+  <text x="22" y="20" font-family="Verdana, Arial, sans-serif" font-size="16" text-anchor="middle" fill="#005a9c">W3C</text>
+
+  <!-- Right panel -->
+  <rect x="44" y="0" width="44" height="31" fill="#d5eefc"/>
+  <text x="58" y="20" font-family="Verdana, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#111111">HTML</text>
+
+  <!-- Checkmark -->
+  <g transform="translate(70,7)">
+    <circle cx="10" cy="10" r="10" fill="#2b8ee6" opacity="0.15"/>
+    <path d="M4 10 l4 4 l8 -8" fill="none" stroke="#2b8ee6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Divider line -->
+  <line x1="44" y1="0" x2="44" y2="31" stroke="#cccccc"/>
+  <!-- Border -->
+  <rect x="0.5" y="0.5" width="87" height="30" fill="none" stroke="#999999"/>
+</svg>
