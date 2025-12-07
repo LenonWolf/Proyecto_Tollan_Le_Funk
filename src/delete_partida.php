@@ -1,11 +1,12 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    @session_name('TOLLAN_SESSION');
+    session_start();
+}
+
 // Habilitar reporte de errores para depuración (comentar en producción)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-// Verificar autenticación y permisos
-require_once 'check_auth.php';
-verificarPermisos(['Adm', 'Mod']);
 
 // Conectar a la base de datos con usuario específico para eliminar partidas
 require_once 'conexion.php';
