@@ -1,17 +1,40 @@
 <?php
+// Iniciar sesión si no está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     @session_name('TOLLAN_SESSION');
     session_start();
 }
 
-// Habilitar reporte de errores para depuración (comentar en producción)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Conectar a la base de datos con usuario específico para eliminar partidas
+// Incluir archivos necesarios
+require_once 'config.php';
 require_once 'conexion.php';
 
+// Establecer header JSON
+header('Content-Type: application/json; charset=utf-8');
+
+// Verificar autenticación manual (sin check_auth.php para evitar redirecciones)
+if (!isset($_SESSION['ID_Usuarios'])) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Sesión no válida']);
+    exit;
+}
+
+// Verificar permisos (solo Adm y Mod pueden eliminar partidas)
+if (!in_array($_SESSION['Tipo_Usr'], ['Adm', 'Mod'])) {
+    http_response_code(403);
+    echo json_encode(['error' => 'No tienes permisos para eliminar partidas']);
+    exit;
+}
+
+// Verificar método POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['error' => 'Método no permitido']);
+    exit;
+}
+
 try {
+    // Conectar a la base de datos
     $db = new Conexion('usr_del_partida', 'del_partida123');
     $conn = $db->conectar();
     
@@ -31,12 +54,13 @@ try {
         exit;
     }
     
-    // Preparar y ejecutar la consulta de eliminación usando prepared statement
+    // Preparar y ejecutar la consulta de eliminación
     $stmt = $conn->prepare("DELETE FROM partida WHERE ID_Partida = ?");
     
     if (!$stmt) {
         http_response_code(500);
         echo json_encode(['error' => 'Error al preparar consulta: ' . $conn->error]);
+        $db->cerrar();
         exit;
     }
     
@@ -59,7 +83,7 @@ try {
     http_response_code(200);
     echo json_encode([
         'success' => true, 
-        'message' => 'Partida eliminada',
+        'message' => 'Partida eliminada correctamente',
         'affected_rows' => $affected
     ]);
     
