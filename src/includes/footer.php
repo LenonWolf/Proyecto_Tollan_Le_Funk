@@ -19,8 +19,7 @@
     <p>&copy;<?php echo date("Y"); ?> <b>Tollan le Funk</b> - Todos los Derechos Reservados.</p> <!-- Derechos de autor -->
 
     <?php
-    $currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
-    $currentUrl .= "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $currentUrl = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     ?>
     <div id="validator">
         <p>
