@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         formData.append('redirect', this.redirect);
                     }
                     
-                    const response = await fetch('/Proyecto_Tollan_Le_Funk/src/procesar_login.php', {
+                    const response = await fetch('/src/procesar_login.php', {
                         method: 'POST',
                         body: formData
                     });

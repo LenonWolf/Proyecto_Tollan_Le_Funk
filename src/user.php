@@ -142,6 +142,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js"></script>
     
     <!-- Script de validaciones -->
-    <script src="/Proyecto_Tollan_Le_Funk/assets/js/user.js"></script>
+    <script src="/assets/js/user.js"></script>
 </body>
 </html>

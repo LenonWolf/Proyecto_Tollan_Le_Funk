@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             async cargarSistemas() {
                 this.cargandoSistemas = true;
                 try {
-                    const response = await fetch('/Proyecto_Tollan_Le_Funk/src/api/get_sistemas.php');
+                    const response = await fetch('/src/api/get_sistemas.php');
                     const data = await response.json();
                     
                     if (data.success) {
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             async cargarDMs() {
                 this.cargandoDMs = true;
                 try {
-                    const response = await fetch('/Proyecto_Tollan_Le_Funk/src/api/get_dms.php');
+                    const response = await fetch('/src/api/get_dms.php');
                     const data = await response.json();
                     
                     if (data.success) {
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
             async cargarInfoSistema(id) {
                 this.cargandoInfo = true;
                 try {
-                    const response = await fetch(`/Proyecto_Tollan_Le_Funk/src/get_sistema.php?id=${encodeURIComponent(id)}`);
+                    const response = await fetch(`/src/get_sistema.php?id=${encodeURIComponent(id)}`);
                     const data = await response.json();
                     
                     if (data.success) {

@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formularioValido() {
                 return this.username.length > 0 &&
                        this.emailValido &&
-                       this.emailDisponible === true &&
+                       //this.emailDisponible === true &&
                        this.password.length >= 6 &&
                        this.passwordsCoinciden === true;
             },
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!this.email) return '';
                 if (!this.emailValido) return 'Formato de email inválido';
                 if (this.verificandoEmail) return 'Verificando...';
-                if (this.emailDisponible === true) return '✓ Correo disponible';
-                if (this.emailDisponible === false) return '✗ Este correo ya está registrado';
+                if (this.emailDisponible === true) return 'Correo disponible';
+                if (this.emailDisponible === false) return 'Este correo YA  está registrado';
                 return '';
             },
             
@@ -147,11 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.actualizarMensajes();
                     
                     try {
-<<<<<<< Updated upstream
-                        const response = await fetch(`/src/api/check_email.php?email=${encodeURIComponent(email)}`);
-=======
                         const response = await fetch('/src/api/check_email.php?email=${encodeURIComponent(email)}');
->>>>>>> Stashed changes
                         const data = await response.json();
                         
                         if (data.success) {
@@ -185,12 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     formData.append('username', this.username);
                     formData.append('email', this.email);
                     formData.append('password', this.password);
-                    
-<<<<<<< Updated upstream
-                    const response = await fetch('/Proyecto_Tollan_Le_Funk/src/procesar_registro.php', {
-=======
                     const response = await fetch('/src/procesar_registro.php', {
->>>>>>> Stashed changes
                         method: 'POST',
                         body: formData
                     });
@@ -199,11 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     if (data.success) {
                         alert('¡Registro exitoso! 🎉\n\nYa puedes iniciar sesión con tu cuenta.');
-<<<<<<< Updated upstream
-                        window.location.href = '/Proyecto_Tollan_Le_Funk/src/login.php';
-=======
                         window.location.href = '/src/login.php';
->>>>>>> Stashed changes
                     } else {
                         alert('Error: ' + data.message);
                         btnRegistrar.disabled = false;
@@ -251,10 +238,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Actualizar estado del botón
                 const btnRegistrar = document.getElementById('btn-registrar');
-                if (btnRegistrar) {
-                    btnRegistrar.disabled = !this.formularioValido || this.enviando;
-                }
+                
             }
         }
     }).mount('main');
 });
+

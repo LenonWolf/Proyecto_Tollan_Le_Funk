@@ -1,7 +1,7 @@
 <?php
 // API para obtener la lista de todos los Dungeon Masters disponibles
 
-require_once '../Conexion.php';
+require_once '../conexion.php';
 
 // Crear conexión con usuario de solo lectura
 $db = new Conexion('usr_lector', 'lector123');
