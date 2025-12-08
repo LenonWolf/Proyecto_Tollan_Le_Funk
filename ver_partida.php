@@ -41,7 +41,7 @@ if (session_status() === PHP_SESSION_NONE) {
         
         <div>
             <?php if ($esAdminOMod): ?>
-                <h2 id="h-ver" class="h-ver-c">Panel de Administración - Todas las partidas</h2>
+                <h2 id="h-ver" class="h-ver-c">Bienvenido al administrador de partidas</h2>
             <?php else: ?>
                 <h2 id="h-ver" class="h-ver-c">Bienvenido al visualizador de partidas</h2>
             <?php endif; ?>
