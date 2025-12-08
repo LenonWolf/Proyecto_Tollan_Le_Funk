@@ -11,7 +11,7 @@
 
     <p>
         <i class="fas fa-info-circle"></i> Sistema v1.0 | 
-        <a href="<?php echo fullUrl('Assets_Tollan_Le_Funk/docs/Manual.pdf'); ?>" target="_blank" rel="noopener noreferrer">
+        <a href="<?php echo fullUrl('assets/docs/manual_de_usuario.pdf'); ?>" target="_blank" rel="noopener noreferrer">
             Manual de uso
         </a>
     </p> <!-- Versión y manual -->
